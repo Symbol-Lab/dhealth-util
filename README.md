@@ -1,2 +1,2 @@
-# symbol-utils
-Symbol utility for js/ts
+# dhealth-utils
+dHealth utility for js/ts
