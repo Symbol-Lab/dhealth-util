@@ -13,10 +13,9 @@ async function run() {
     /**
      * Get Account info
      */
-    const result = await centiva.AccountUtil.getAccountInfo('https://api-01.dhealth.dev:3001', 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ');
-    console.log(result);
+    // const result = await centiva.AccountUtil.getAccountInfo('TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ');
+    // console.log(result);
     centiva.AccountUtil.getMosaicSent({
-        nodeUrl: 'https://api-01.dhealth.dev:3001',
         recipientRawAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
         mosaicIdHex: '5A4935C1D66E6AC4'
     });
