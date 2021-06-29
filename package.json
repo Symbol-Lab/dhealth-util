@@ -33,6 +33,7 @@
   "dependencies": {
     "axios": "^0.21.1",
     "rxjs": "^6.6.7",
+    "symbol-hd-wallets": "^0.14.1",
     "symbol-sdk": "^1.0.0"
   }
 }

@@ -1,9 +1,23 @@
 import { Account, Address, MosaicId, NetworkType, RepositoryFactoryHttp, TransactionGroup, TransactionType, TransferTransaction } from 'symbol-sdk';
+import { ExtendedKey, MnemonicPassPhrase, Network, Wallet } from 'symbol-hd-wallets';
 import { map, mergeMap, filter, toArray } from 'rxjs/operators';
 import { MosaicUtil, NetworkUtil } from './'
 
+
 export class AccountUtil {
-   public static generateAccount(networkType: NetworkType) {
+    public static generateHDWalletMnemonic() {
+        return MnemonicPassPhrase.createRandom();
+    }
+
+    public static getHDWalletFromMnemonic(words: string) {
+        const mnemonic = new MnemonicPassPhrase(words);
+        const bip32Seed = mnemonic.toSeed(); // using empty password
+        const xkey = ExtendedKey.createFromSeed(bip32Seed.toString('hex'), Network.SYMBOL);
+        const wallet = new Wallet(xkey);
+        return wallet;
+    }
+
+    public static generateAccount(networkType: NetworkType) {
         const account = Account.generateNewAccount(networkType);
         return account;
     }
