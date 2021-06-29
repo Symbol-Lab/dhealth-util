@@ -6,7 +6,7 @@ import { MosaicUtil, NetworkUtil } from './'
 
 export class AccountUtil {
     public static generateHDWalletMnemonic() {
-        return MnemonicPassPhrase.createRandom();
+        return MnemonicPassPhrase.createRandom('english', 128);
     }
 
     public static getHDWalletFromMnemonic(words: string) {
@@ -15,6 +15,12 @@ export class AccountUtil {
         const xkey = ExtendedKey.createFromSeed(bip32Seed.toString('hex'), Network.SYMBOL);
         const wallet = new Wallet(xkey);
         return wallet;
+    }
+
+    public static getAccountAtIndex(wallet: Wallet, index: number, networkType: NetworkType) {
+        const privateKey = wallet.getChildAccountPrivateKey(`m/44/4343/0/0/${index}`);
+        const account = this.generateNewAccountWithPrivateKey(privateKey, networkType);
+        return account;
     }
 
     public static generateAccount(networkType: NetworkType) {
