@@ -1,6 +1,6 @@
 import { Account, Address, MosaicId, NetworkType, RepositoryFactoryHttp, TransactionGroup, TransactionType, TransferTransaction } from 'symbol-sdk';
 import { map, mergeMap, filter, toArray } from 'rxjs/operators';
-import { MosaicUtil } from './'
+import { MosaicUtil, NetworkUtil } from './'
 
 export class AccountUtil {
    public static generateAccount(networkType: NetworkType) {
@@ -13,22 +13,26 @@ export class AccountUtil {
         return account;
     }
 
-    public static async getAccountInfo(nodeUrl: string, rawAddress: string) {
+    public static async getAccountInfo(rawAddress: string) {
+        const networkType = NetworkUtil.getNetworkTypeFromAddress(rawAddress);
+        const node = await NetworkUtil.getNodeFromNetwork(networkType);
         const address = Address.createFromRawAddress(rawAddress);
-        const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
+        const repositoryFactory = new RepositoryFactoryHttp(node.url);
         const accountHttp = repositoryFactory.createAccountRepository();
         return await accountHttp.getAccountInfo(address).toPromise();
     }
 
     public static async getMosaicSent(options: {
-        nodeUrl: string, signerPubKey: string, recipientRawAddress: string, mosaicIdHex: string
+        signerPubKey: string, recipientRawAddress: string, mosaicIdHex: string
     }) {
+        const networkType = NetworkUtil.getNetworkTypeFromAddress(options.recipientRawAddress);
+        const node = await NetworkUtil.getNodeFromNetwork(networkType);
         const signerPublicKey = options.signerPubKey;
         const recipientAddress = options.recipientRawAddress ? Address.createFromRawAddress(options.recipientRawAddress) : undefined;
-        const mosaicInfo = await MosaicUtil.getMosaicInfo(options.nodeUrl, options.mosaicIdHex);
+        const mosaicInfo = await MosaicUtil.getMosaicInfo(node.url, options.mosaicIdHex);
         const divisibility = mosaicInfo.divisibility;
         const mosaicId = options.mosaicIdHex ? new MosaicId(options.mosaicIdHex) : undefined;
-        const repositoryFactory = new RepositoryFactoryHttp(options.nodeUrl);
+        const repositoryFactory = new RepositoryFactoryHttp(node.url);
         const transactionHttp = repositoryFactory.createTransactionRepository();
 
         const searchCriteria = {
