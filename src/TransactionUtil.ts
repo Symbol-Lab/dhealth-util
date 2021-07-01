@@ -16,7 +16,7 @@ export class TransactionUtil {
         // const transferTransaction = await this.createTransferTransaction(networkType, recipientAddress, aliasedMosaic, plainMessage, maxFee);
         // console.log('transferTransaction: ', transferTransaction);
         // const account = Account.createFromPrivateKey(privateKey, networkType);
-        const networkGenerationHash = config.networkConfig[networkType].networkConfigurationDefaults.generationHash;
+        const networkGenerationHash = config.networks[networkType].networkConfigurationDefaults.generationHash;
         // const signedTransaction = account.sign(transferTransaction, networkGenerationHash);
         // console.log(signedTransaction.hash);
         const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
@@ -69,7 +69,7 @@ export class TransactionUtil {
 
     public static async createTransferTransaction(networkType: NetworkType, recipientAddress: string, aliasedMosaic: Mosaic, plainMessage: string, maxFee: number) {
         return TransferTransaction.create(
-            Deadline.create(config.networkConfig[networkType].networkConfigurationDefaults.epochAdjustment),
+            Deadline.create(config.networks[networkType].networkConfigurationDefaults.epochAdjustment),
             Address.createFromRawAddress(recipientAddress),
             [aliasedMosaic],
             PlainMessage.create(plainMessage),

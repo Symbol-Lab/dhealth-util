@@ -9,6 +9,18 @@ export class AccountUtil {
         return MnemonicPassPhrase.createRandom('english', 128);
     }
 
+    public static generateProtectedSeedFromMnemonic(words: string, password: string) {
+        const mnemonic = new MnemonicPassPhrase(words);
+        const protectedSeed = mnemonic.toSeed(password);
+        return protectedSeed.toString('hex');
+    }
+
+    public static getHDWalletFromProtectedSeed(protectedSeed: string, password: string) {
+        const xkey = ExtendedKey.createFromSeed(protectedSeed, Network.SYMBOL);
+        const wallet = new Wallet(xkey);
+        return wallet;
+    }
+
     public static getHDWalletFromMnemonic(words: string) {
         const mnemonic = new MnemonicPassPhrase(words);
         const bip32Seed = mnemonic.toSeed(); // using empty password
