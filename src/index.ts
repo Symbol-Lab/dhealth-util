@@ -7,7 +7,10 @@ import { NetworkUtil } from './NetworkUtil'
 import * as NetworkConfig from './NetworkConfig'
 
 // symbol-sdk
-import { Account, Address, EncryptedMessage, NetworkType, Password, PublicAccount, SimpleWallet, TransferTransaction } from 'symbol-sdk';
+import {
+  Account, Address, EncryptedMessage, NetworkType, Password, PublicAccount, SimpleWallet, TransferTransaction,
+  MosaicId, Transaction, NodeHttp, TransactionHttp, Mosaic, PlainMessage,	SignedTransaction
+} from 'symbol-sdk';
 
 // symbol-hd-wallet
 import { Network, Wallet } from 'symbol-hd-wallets';
@@ -22,14 +25,8 @@ export {
   NetworkUtil,
 
   // symbol-sdk
-  Account,
-  EncryptedMessage,
-  NetworkType,
-  Password,
-  PublicAccount,
-  SimpleWallet,
-  Address,
-  TransferTransaction,
+  Account, Address, EncryptedMessage, NetworkType, Password, PublicAccount, SimpleWallet, TransferTransaction,
+  MosaicId, Transaction, NodeHttp, TransactionHttp, Mosaic, PlainMessage,	SignedTransaction,
 
   // symbol-hd-wallet
   Network,
