@@ -1,5 +1,4 @@
 import { Account, Address, Deadline, Mosaic, NamespaceId, NetworkType, PlainMessage, RepositoryFactoryHttp, SignedTransaction, Transaction, TransactionAnnounceResponse, TransactionService, TransferTransaction, UInt64 } from "symbol-sdk";
-import { map, mergeMap } from 'rxjs/operators';
 import * as config from './NetworkConfig';
 import { NetworkUtil } from "./NetworkUtil";
 import { NetworkConfig } from ".";
@@ -11,12 +10,16 @@ export class TransactionUtil {
         networkType: NetworkType,
         privateKey: string,
         recipientAddress: string, 
-        namespaceId: string, amount: number, 
+        mosaicDetails: Array<{namespaceId: string, amount: number}>,
         plainMessage: string, 
         maxFee: number
     ) {
-        const aliasedMosaic = await this.getMosaicFromNamespace(namespaceId, amount);
-        const transferTransaction = await this.createTransferTransaction(networkType, recipientAddress, aliasedMosaic, plainMessage, maxFee);
+        let aliasedMosaics = [];
+        for (const mosaicDetail of mosaicDetails) {
+            const aliasedMosaic = this.getMosaicFromNamespace(mosaicDetail.namespaceId, mosaicDetail.amount);
+            aliasedMosaics.push(aliasedMosaic);
+        }
+        const transferTransaction = await this.createTransferTransaction(networkType, recipientAddress, aliasedMosaics, plainMessage, maxFee);
         const account = Account.createFromPrivateKey(privateKey, networkType);
         const signedTransaction = await this.signTransaction(networkType, account, transferTransaction);
         console.log('Payload:', signedTransaction.payload);
@@ -26,7 +29,7 @@ export class TransactionUtil {
         return response;
     }
 
-    public static async getMosaicFromNamespace(namespaceId: string, amount: number) {
+    public static getMosaicFromNamespace(namespaceId: string, amount: number) {
         const aliasedMosaic = new Mosaic(
             new NamespaceId(namespaceId),
             UInt64.fromUint(amount),
@@ -34,11 +37,11 @@ export class TransactionUtil {
         return aliasedMosaic;
     }
 
-    public static async createTransferTransaction(networkType: NetworkType, recipientAddress: string, aliasedMosaic: Mosaic, plainMessage: string, maxFee: number) {
+    public static async createTransferTransaction(networkType: NetworkType, recipientAddress: string, aliasedMosaics: Mosaic[], plainMessage: string, maxFee: number) {
         return TransferTransaction.create(
             Deadline.create(config.networks[networkType].networkConfigurationDefaults.epochAdjustment),
             Address.createFromRawAddress(recipientAddress),
-            [aliasedMosaic],
+            aliasedMosaics,
             PlainMessage.create(plainMessage),
             networkType,
             UInt64.fromUint(maxFee),
