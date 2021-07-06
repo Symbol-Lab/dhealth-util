@@ -4,7 +4,7 @@ const axios = require('axios');
 
 export class NetworkUtil {
   public static async getNodeFromNetwork(networkType: NetworkType) {
-    const available_nodes = config.networkConfig[networkType].nodes;
+    const available_nodes = config.networks[networkType].nodes;
     for (const node of available_nodes) {
       const nodeIsUp = await this.nodeIsUp(`${node.url}/node/health`);
       if (nodeIsUp) {
@@ -18,7 +18,7 @@ export class NetworkUtil {
     const res = await axios.get(nodeUrl).catch(() => {
       return false;
     });
-    if (res.data.status.apiNode === 'up' && res.data.status.db === 'up') {
+    if (res.data && res.data.status.apiNode === 'up' && res.data.status.db === 'up') {
       return true;
     }
     return false;

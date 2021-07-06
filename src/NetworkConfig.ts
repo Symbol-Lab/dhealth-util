@@ -117,4 +117,4 @@ const defaultNetworkConfig: Record<number, NetworkConfig> = {
     104: defaultMainnetNetworkConfig
 };
 
-export const networkConfig = defaultNetworkConfig;
+export const networks = defaultNetworkConfig;

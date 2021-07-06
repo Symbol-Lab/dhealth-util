@@ -1,6 +1,8 @@
-import { Account, Address, Deadline, Mosaic, NamespaceId, NetworkType, PlainMessage, RepositoryFactoryHttp, TransactionService, TransferTransaction, UInt64 } from "symbol-sdk";
-import { map, mergeMap } from 'rxjs/operators';
+import { Account, Address, Deadline, Mosaic, NamespaceId, NetworkType, PlainMessage, RepositoryFactoryHttp, SignedTransaction, Transaction, TransactionAnnounceResponse, TransactionService, TransferTransaction, UInt64 } from "symbol-sdk";
 import * as config from './NetworkConfig';
+import { NetworkUtil } from "./NetworkUtil";
+import { NetworkConfig } from ".";
+import { Observable } from "rxjs";
 
 export class TransactionUtil {
     public static async sendTransferTransaction(
@@ -8,58 +10,26 @@ export class TransactionUtil {
         networkType: NetworkType,
         privateKey: string,
         recipientAddress: string, 
-        namespaceId: string, amount: number, 
+        mosaicDetails: Array<{namespaceId: string, amount: number}>,
         plainMessage: string, 
         maxFee: number
     ) {
-        const aliasedMosaic = await this.getMosaicFromNamespace(namespaceId, amount);
-        // const transferTransaction = await this.createTransferTransaction(networkType, recipientAddress, aliasedMosaic, plainMessage, maxFee);
-        // console.log('transferTransaction: ', transferTransaction);
-        // const account = Account.createFromPrivateKey(privateKey, networkType);
-        const networkGenerationHash = config.networkConfig[networkType].networkConfigurationDefaults.generationHash;
-        // const signedTransaction = account.sign(transferTransaction, networkGenerationHash);
-        // console.log(signedTransaction.hash);
-        const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
-        // const receiptHttp = repositoryFactory.createReceiptRepository();
-        const transactionHttp = repositoryFactory.createTransactionRepository();
-        // const listener = repositoryFactory.createListener();
-        // const transactionService = new TransactionService(transactionHttp, receiptHttp);
-
-        // listener.open().then(() => {
-        // transactionService
-        //     .announce(signedTransaction, listener)
-        //     .pipe(
-        //         mergeMap((transaction) =>
-        //             transactionService.resolveAliases([transaction.transactionInfo!.hash!]),
-        //         ),
-        //         map((transactions) => transactions[0] as TransferTransaction),
-        //     )
-        //     .subscribe(
-        //         (transaction) => {
-        //             console.log('Resolved MosaicId: ', transaction.mosaics[0].id.toHex());
-        //             listener.close();
-        //         },
-        //         (err) => console.log(err),
-        //     );
-        // });
-
-        const transferTransaction = await this.createTransferTransaction(networkType, recipientAddress, aliasedMosaic, plainMessage, maxFee);
-        // replace with sender private key
+        let aliasedMosaics = [];
+        for (const mosaicDetail of mosaicDetails) {
+            const aliasedMosaic = this.getMosaicFromNamespace(mosaicDetail.namespaceId, mosaicDetail.amount);
+            aliasedMosaics.push(aliasedMosaic);
+        }
+        const transferTransaction = await this.createTransferTransaction(networkType, recipientAddress, aliasedMosaics, plainMessage, maxFee);
         const account = Account.createFromPrivateKey(privateKey, networkType);
-        const signedTransaction = account.sign(
-        transferTransaction,
-        networkGenerationHash,
-        );
+        const signedTransaction = await this.signTransaction(networkType, account, transferTransaction);
         console.log('Payload:', signedTransaction.payload);
         console.log('Transaction Hash:', signedTransaction.hash);
 
-        const response = await transactionHttp
-        .announce(signedTransaction)
-        .toPromise();
-        console.log(response);
+        const response = (await this.announceTransaction(networkType, signedTransaction)).toPromise();
+        return response;
     }
 
-    public static async getMosaicFromNamespace(namespaceId: string, amount: number) {
+    public static getMosaicFromNamespace(namespaceId: string, amount: number) {
         const aliasedMosaic = new Mosaic(
             new NamespaceId(namespaceId),
             UInt64.fromUint(amount),
@@ -67,14 +37,31 @@ export class TransactionUtil {
         return aliasedMosaic;
     }
 
-    public static async createTransferTransaction(networkType: NetworkType, recipientAddress: string, aliasedMosaic: Mosaic, plainMessage: string, maxFee: number) {
+    public static async createTransferTransaction(networkType: NetworkType, recipientAddress: string, aliasedMosaics: Mosaic[], plainMessage: string, maxFee: number) {
         return TransferTransaction.create(
-            Deadline.create(config.networkConfig[networkType].networkConfigurationDefaults.epochAdjustment),
+            Deadline.create(config.networks[networkType].networkConfigurationDefaults.epochAdjustment),
             Address.createFromRawAddress(recipientAddress),
-            [aliasedMosaic],
+            aliasedMosaics,
             PlainMessage.create(plainMessage),
             networkType,
             UInt64.fromUint(maxFee),
         );
+    }
+
+    public static async signTransaction(networkType: NetworkType, account: Account, transaction: Transaction) {
+        const networkGenerationHash = NetworkConfig.networks[networkType].networkConfigurationDefaults.generationHash;
+        const signedTransaction = account.sign(
+            transaction,
+            networkGenerationHash,
+        );
+        return signedTransaction;
+    }
+
+    public static async announceTransaction(networkType: NetworkType, signedTransaction: SignedTransaction): Promise<Observable<TransactionAnnounceResponse>> {
+        const node = await NetworkUtil.getNodeFromNetwork(networkType);
+        const repositoryFactory = new RepositoryFactoryHttp(node.url);
+        const transactionHttp = repositoryFactory.createTransactionRepository();
+        const response = transactionHttp.announce(signedTransaction)
+        return response;
     }
 }

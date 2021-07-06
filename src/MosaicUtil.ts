@@ -19,7 +19,7 @@ export class MosaicUtil {
 
     const nonce = MosaicNonce.createRandom();
     const mosaicDefinitionTransaction = MosaicDefinitionTransaction.create(
-      Deadline.create(NetworkConfig.networkConfig[networkType].networkConfigurationDefaults.epochAdjustment),
+      Deadline.create(NetworkConfig.networks[networkType].networkConfigurationDefaults.epochAdjustment),
       nonce,
       MosaicId.createFromNonce(nonce, account.address),
       MosaicFlags.create(isSupplyMutable, isTransferable, isRestrictable),
@@ -32,7 +32,7 @@ export class MosaicUtil {
     const delta = supply;
 
     const mosaicSupplyChangeTransaction = MosaicSupplyChangeTransaction.create(
-      Deadline.create(NetworkConfig.networkConfig[networkType].networkConfigurationDefaults.epochAdjustment),
+      Deadline.create(NetworkConfig.networks[networkType].networkConfigurationDefaults.epochAdjustment),
       mosaicDefinitionTransaction.mosaicId,
       MosaicSupplyChangeAction.Increase,
       UInt64.fromUint(delta * Math.pow(10, divisibility)),
@@ -40,7 +40,7 @@ export class MosaicUtil {
     );
 
     const aggregateTransaction = AggregateTransaction.createComplete(
-      Deadline.create(NetworkConfig.networkConfig[networkType].networkConfigurationDefaults.epochAdjustment),
+      Deadline.create(NetworkConfig.networks[networkType].networkConfigurationDefaults.epochAdjustment),
       [
         mosaicDefinitionTransaction.toAggregate(account.publicAccount),
         mosaicSupplyChangeTransaction.toAggregate(account.publicAccount),
@@ -51,13 +51,13 @@ export class MosaicUtil {
     );
     
     // replace with meta.networkGenerationHash (nodeUrl + '/node/info')
-    const networkGenerationHash = NetworkConfig.networkConfig[networkType].networkConfigurationDefaults.generationHash;
+    const networkGenerationHash = NetworkConfig.networks[networkType].networkConfigurationDefaults.generationHash;
     const signedTransaction = account.sign(
       aggregateTransaction,
       networkGenerationHash,
     );
     // replace with node endpoint
-    const nodeUrl = NetworkConfig.networkConfig[networkType].nodes[0].url;
+    const nodeUrl = NetworkConfig.networks[networkType].nodes[0].url;
     // const nodeUrl = 'http://ngl-dual-101.testnet.symboldev.network:3000';
     const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
     const transactionHttp = repositoryFactory.createTransactionRepository();
