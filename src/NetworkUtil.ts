@@ -18,7 +18,7 @@ export class NetworkUtil {
     const res = await axios.get(nodeUrl).catch(() => {
       return false;
     });
-    if (res.data.status.apiNode === 'up' && res.data.status.db === 'up') {
+    if (res.data && res.data.status.apiNode === 'up' && res.data.status.db === 'up') {
       return true;
     }
     return false;
