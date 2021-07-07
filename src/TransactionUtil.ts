@@ -4,6 +4,7 @@ import { NetworkUtil } from "./NetworkUtil";
 import { NetworkConfig } from ".";
 import { Observable } from "rxjs";
 import { map, mergeMap, filter, toArray } from 'rxjs/operators';
+import { TransactionSearchCriteria } from "symbol-sdk";
 
 export class TransactionUtil {
     public static async sendTransferTransaction(
@@ -66,16 +67,68 @@ export class TransactionUtil {
         return response.toPromise();
     }
 
-    public static async getTransactions(nodeUrl: string, group: TransactionGroup, rawAddress: string, pageNumber: number, pageSize: number, id?: string) {
+    /**
+     * More about TransactionSearchCriteria:
+     * https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html
+     * @param networkType
+     * @param searchCriteria
+     * @returns all transactions that meet the search criteria
+     */
+    public static async getTransactions(networkType: NetworkType ,searchCriteria: TransactionSearchCriteria) {
+        const node = await NetworkUtil.getNodeFromNetwork(networkType);
+        const repositoryFactory = new RepositoryFactoryHttp(node.url);
+        const transactionHttp = repositoryFactory.createTransactionRepository();
+        const page = await transactionHttp.search(searchCriteria).toPromise();
+        return page.data;
+    }
+
+    /**
+     * Get incoming transactions from address.
+     * @param rawAddress
+     * @param group
+     * @param pageNumber
+     * @param pageSize
+     * @param mosaicIdHex
+     * @returns all incoming transactions
+     */
+    public static async getIncommingTransactions(rawAddress: string, group: TransactionGroup, pageNumber: number, pageSize: number, mosaicIdHex?: string) {
         const address = Address.createFromRawAddress(rawAddress);
-        const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
+        const networkType = NetworkUtil.getNetworkTypeFromAddress(rawAddress);
+        const node = await NetworkUtil.getNodeFromNetwork(networkType);
+        const repositoryFactory = new RepositoryFactoryHttp(node.url);
         const transactionHttp = repositoryFactory.createTransactionRepository();
         const searchCriteria = {
+            recipientAddress: address,
             group: group,
-            address,
             pageNumber: pageNumber,
             pageSize: pageSize,
-            id: id
+            mosaicIdHex: mosaicIdHex
+        };
+        const page = await transactionHttp.search(searchCriteria).toPromise();
+        return page.data;
+    }
+
+    /**
+     * Get outgoing transactions from address.
+     * @param rawAddress
+     * @param signerPubKey
+     * @param group
+     * @param pageNumber
+     * @param pageSize
+     * @param mosaicIdHex
+     * @returns all outgoing transactions
+     */
+    public static async getOutgoingTransactions(rawAddress: string, signerPubKey: string, group: TransactionGroup, pageNumber: number, pageSize: number, mosaicIdHex?: string) {
+        const networkType = NetworkUtil.getNetworkTypeFromAddress(rawAddress);
+        const node = await NetworkUtil.getNodeFromNetwork(networkType);
+        const repositoryFactory = new RepositoryFactoryHttp(node.url);
+        const transactionHttp = repositoryFactory.createTransactionRepository();
+        const searchCriteria = {
+            signerPublicKey: signerPubKey,
+            group: group,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            mosaicIdHex: mosaicIdHex
         };
         const page = await transactionHttp.search(searchCriteria).toPromise();
         return page.data;

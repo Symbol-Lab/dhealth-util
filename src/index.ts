@@ -34,7 +34,8 @@ import {
   TransactionGroup,
   TransactionService,
   UInt64,
-  TransactionType
+  TransactionType,
+  TransactionSearchCriteria
 } from 'symbol-sdk';
 
 // symbol-hd-wallet
@@ -77,6 +78,7 @@ export {
   TransactionService,
   UInt64,
   TransactionType,
+  TransactionSearchCriteria,
 
   // symbol-hd-wallet
   Network,

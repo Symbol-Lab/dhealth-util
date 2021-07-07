@@ -38,10 +38,15 @@ async function run() {
     /**
      * Get transactions
      */
-    result = await dhealth_utils.TransactionUtil.getTransactions(
-        'https://api-01.dhealth.dev:3001', 'confirmed', 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 1, 1, '5A4935C1D66E6AC4'
+    result = await dhealth_utils.TransactionUtil.getIncommingTransactions(
+        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'confirmed', 1, 1, '5A4935C1D66E6AC4'
     );
-    console.log(result);
+    console.log(JSON.stringify(result));
+
+    result = await dhealth_utils.TransactionUtil.getOutgoingTransactions(
+        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'BB221F81903C12056A5F1AD00673C32F88B7B6A269B3799EFD79A4B81360B183', 'confirmed', 1, 1, '5A4935C1D66E6AC4'
+    );
+    console.log(JSON.stringify(result));
 
     /**
      * Get latest block
