@@ -1,5 +1,4 @@
-import { Account, AggregateTransaction, Deadline, MosaicDefinitionTransaction, MosaicFlags, MosaicId, MosaicInfo, MosaicNonce, MosaicSupplyChangeAction, MosaicSupplyChangeTransaction, NetworkType, RepositoryFactoryHttp, UInt64 } from "symbol-sdk";
-import { NetworkConfig } from './'
+import { Account, AggregateTransaction, Deadline, MosaicDefinitionTransaction, MosaicFlags, MosaicId, MosaicInfo, MosaicNonce, MosaicSupplyChangeAction, MosaicSupplyChangeTransaction, NamespaceId, NetworkConfig, NetworkType, RepositoryFactoryHttp, UInt64 } from "./";
 
 export class MosaicUtil {
 
@@ -80,5 +79,13 @@ export class MosaicUtil {
         (err) => reject(err),
       );
     })
+  }
+
+  public static async getMosaicIdFromNamespace(nodeUrl: string, namespace: string) {
+    const namespaceId = new NamespaceId(namespace);
+    const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
+    const namespaceHttp = repositoryFactory.createNamespaceRepository();
+    const mosaicId = await namespaceHttp.getLinkedMosaicId(namespaceId).toPromise();
+    return mosaicId?.toHex();
   }
 }

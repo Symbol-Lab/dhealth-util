@@ -44,20 +44,20 @@ async function run() {
     console.log(JSON.stringify(result));
 
     result = await dhealth_utils.TransactionUtil.getOutgoingTransactions(
-        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'BB221F81903C12056A5F1AD00673C32F88B7B6A269B3799EFD79A4B81360B183', 'confirmed', 1, 1, '5A4935C1D66E6AC4'
+        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'BB221F81903C12056A5F1AD00673C32F88B7B6A269B3799EFD79A4B81360B183', 'confirmed', 1, 2, '5A4935C1D66E6AC4'
     );
-    console.log(JSON.stringify(result));
+    console.log(result);
 
     /**
      * Get latest block
      */
-    result = await dhealth_utils.BlockchainUtil.getLatestBlock('https://api-01.dhealth.dev:3001');
+    result = await dhealth_utils.BlockchainUtil.getLatestBlock(dhealth_utils.NetworkType.TEST_NET);
     console.log(result);
 
     /**
      * Get mosaic ID from namespace
      */
-    result = await dhealth_utils.BlockchainUtil.getMosaicIdFromNamespace('https://api-01.dhealth.dev:3001', 'dhealth.dhp');
+    result = await dhealth_utils.MosaicUtil.getMosaicIdFromNamespace('https://api-01.dhealth.dev:3001', 'dhealth.dhp');
     console.log(result);
 
     /**
@@ -66,7 +66,7 @@ async function run() {
     await dhealth_utils.TransactionUtil.sendTransferTransaction(
         'https://api-01.dhealth.dev:3001',
         152, '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B',
-        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', [{namespaceId: 'dhealth.dhp', amount: 100000}], 'test create transfer tx from sdk dhp', 100000
+        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', [{namespaceId: 'dhealth.dhp', amount: 100000}], `test create transfer tx - ${new Date().getTime()}`, 100000
     ).catch(err => {
         console.log(err);
     });

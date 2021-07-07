@@ -35,7 +35,15 @@ import {
   TransactionService,
   UInt64,
   TransactionType,
-  TransactionSearchCriteria
+  TransactionSearchCriteria,
+  Message,
+  AggregateTransaction,
+  MosaicDefinitionTransaction,
+  MosaicFlags,
+  MosaicInfo,
+  MosaicNonce,
+  MosaicSupplyChangeAction,
+  MosaicSupplyChangeTransaction
 } from 'symbol-sdk';
 
 // symbol-hd-wallet
@@ -79,6 +87,14 @@ export {
   UInt64,
   TransactionType,
   TransactionSearchCriteria,
+  Message,
+  AggregateTransaction,
+  MosaicDefinitionTransaction,
+  MosaicFlags,
+  MosaicInfo,
+  MosaicNonce,
+  MosaicSupplyChangeAction,
+  MosaicSupplyChangeTransaction,
 
   // symbol-hd-wallet
   Network,

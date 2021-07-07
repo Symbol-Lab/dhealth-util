@@ -2,7 +2,6 @@ import { Account, Address, Deadline, Mosaic, MosaicId, MosaicUtil, NamespaceId, 
 import * as config from './NetworkConfig';
 import { NetworkUtil } from "./NetworkUtil";
 import { NetworkConfig } from ".";
-import { Observable } from "rxjs";
 import { map, mergeMap, filter, toArray } from 'rxjs/operators';
 import { TransactionSearchCriteria } from "symbol-sdk";
 
