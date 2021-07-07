@@ -25,7 +25,7 @@ export class TransactionUtil {
         console.log('Payload:', signedTransaction.payload);
         console.log('Transaction Hash:', signedTransaction.hash);
 
-        const response = (await this.announceTransaction(networkType, signedTransaction)).toPromise();
+        const response = (await this.announceTransaction(networkType, signedTransaction));
         return response;
     }
 
@@ -57,11 +57,11 @@ export class TransactionUtil {
         return signedTransaction;
     }
 
-    public static async announceTransaction(networkType: NetworkType, signedTransaction: SignedTransaction): Promise<Observable<TransactionAnnounceResponse>> {
+    public static async announceTransaction(networkType: NetworkType, signedTransaction: SignedTransaction): Promise<TransactionAnnounceResponse> {
         const node = await NetworkUtil.getNodeFromNetwork(networkType);
         const repositoryFactory = new RepositoryFactoryHttp(node.url);
         const transactionHttp = repositoryFactory.createTransactionRepository();
         const response = transactionHttp.announce(signedTransaction)
-        return response;
+        return response.toPromise();
     }
 }

@@ -8,8 +8,27 @@ import * as NetworkConfig from './NetworkConfig'
 
 // symbol-sdk
 import {
-  Account, Address, EncryptedMessage, NetworkType, Password, PublicAccount, SimpleWallet, TransferTransaction,
-  MosaicId, Transaction, NodeHttp, TransactionHttp, Mosaic, PlainMessage,	SignedTransaction
+  Account,
+  Address,
+  EncryptedMessage,
+  NetworkType,
+  Password,
+  PublicAccount,
+  SimpleWallet,
+  TransferTransaction,
+  MosaicId,
+  Transaction,
+  NodeHttp,
+  TransactionHttp,
+  Mosaic,
+  PlainMessage,
+  SignedTransaction,
+  TransactionAnnounceResponse,
+  RepositoryFactoryHttp,
+  MosaicRepository,
+  AccountRepository,
+  TransactionRepository,
+  NodeRepository
 } from 'symbol-sdk';
 
 // symbol-hd-wallet
@@ -25,8 +44,27 @@ export {
   NetworkUtil,
 
   // symbol-sdk
-  Account, Address, EncryptedMessage, NetworkType, Password, PublicAccount, SimpleWallet, TransferTransaction,
-  MosaicId, Transaction, NodeHttp, TransactionHttp, Mosaic, PlainMessage,	SignedTransaction,
+  Account,
+  Address,
+  EncryptedMessage,
+  NetworkType,
+  Password,
+  PublicAccount,
+  SimpleWallet,
+  TransferTransaction,
+  MosaicId,
+  Transaction,
+  NodeHttp,
+  TransactionHttp,
+  Mosaic,
+  PlainMessage,
+  SignedTransaction,
+  TransactionAnnounceResponse,
+  RepositoryFactoryHttp,
+  MosaicRepository,
+  AccountRepository,
+  TransactionRepository,
+  NodeRepository,
 
   // symbol-hd-wallet
   Network,
