@@ -24,7 +24,7 @@ async function run() {
     let result = await dhealth_utils.AccountUtil.getAccountInfo('TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ');
     console.log(result);
 
-    await dhealth_utils.AccountUtil.getMosaicSent({
+    await dhealth_utils.TransactionUtil.getMosaicSent({
         recipientRawAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
         mosaicIdHex: '5A4935C1D66E6AC4'
     });
@@ -38,7 +38,7 @@ async function run() {
     /**
      * Get transactions
      */
-    result = await dhealth_utils.AccountUtil.getTransactions(
+    result = await dhealth_utils.TransactionUtil.getTransactions(
         'https://api-01.dhealth.dev:3001', 'confirmed', 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 1, 1, '5A4935C1D66E6AC4'
     );
     console.log(result);
@@ -59,9 +59,9 @@ async function run() {
      * create tx
      */
     await dhealth_utils.TransactionUtil.sendTransferTransaction(
-        'http://61.27.29.85:3000',
-        152, '09E8303C4D6ECB45F8431A1C27380CB91C941F595A2E5AA6384C73F3AD907126',
-        'TDG7K4QTI4Z6BDVM7LI2OWMCBS6IA5IKKHXXCGY', [{namespaceId: 'symbol.xym', amount: 100000}], 'test create transfer tx from sdk', 100000
+        'https://api-01.dhealth.dev:3001',
+        152, '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B',
+        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', [{namespaceId: 'dhealth.dhp', amount: 100000}], 'test create transfer tx from sdk dhp', 100000
     ).catch(err => {
         console.log(err);
     });

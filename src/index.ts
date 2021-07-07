@@ -28,7 +28,13 @@ import {
   MosaicRepository,
   AccountRepository,
   TransactionRepository,
-  NodeRepository
+  NodeRepository,
+  Deadline,
+  NamespaceId,
+  TransactionGroup,
+  TransactionService,
+  UInt64,
+  TransactionType
 } from 'symbol-sdk';
 
 // symbol-hd-wallet
@@ -65,6 +71,12 @@ export {
   AccountRepository,
   TransactionRepository,
   NodeRepository,
+  Deadline,
+  NamespaceId,
+  TransactionGroup,
+  TransactionService,
+  UInt64,
+  TransactionType,
 
   // symbol-hd-wallet
   Network,

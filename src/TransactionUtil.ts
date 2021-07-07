@@ -1,8 +1,9 @@
-import { Account, Address, Deadline, Mosaic, NamespaceId, NetworkType, PlainMessage, RepositoryFactoryHttp, SignedTransaction, Transaction, TransactionAnnounceResponse, TransactionService, TransferTransaction, UInt64 } from "symbol-sdk";
+import { Account, Address, Deadline, Mosaic, MosaicId, MosaicUtil, NamespaceId, NetworkType, PlainMessage, RepositoryFactoryHttp, SignedTransaction, Transaction, TransactionAnnounceResponse, TransactionGroup, TransactionService, TransactionType, TransferTransaction, UInt64 } from "./";
 import * as config from './NetworkConfig';
 import { NetworkUtil } from "./NetworkUtil";
 import { NetworkConfig } from ".";
 import { Observable } from "rxjs";
+import { map, mergeMap, filter, toArray } from 'rxjs/operators';
 
 export class TransactionUtil {
     public static async sendTransferTransaction(
@@ -63,5 +64,69 @@ export class TransactionUtil {
         const transactionHttp = repositoryFactory.createTransactionRepository();
         const response = transactionHttp.announce(signedTransaction)
         return response.toPromise();
+    }
+
+    public static async getTransactions(nodeUrl: string, group: TransactionGroup, rawAddress: string, pageNumber: number, pageSize: number, id?: string) {
+        const address = Address.createFromRawAddress(rawAddress);
+        const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
+        const transactionHttp = repositoryFactory.createTransactionRepository();
+        const searchCriteria = {
+            group: group,
+            address,
+            pageNumber: pageNumber,
+            pageSize: pageSize,
+            id: id
+        };
+        const page = await transactionHttp.search(searchCriteria).toPromise();
+        return page.data;
+    }
+
+    public static async getMosaicSent(options: {
+        signerPubKey: string, recipientRawAddress: string, mosaicIdHex: string
+    }) {
+        const networkType = NetworkUtil.getNetworkTypeFromAddress(options.recipientRawAddress);
+        const node = await NetworkUtil.getNodeFromNetwork(networkType);
+        const signerPublicKey = options.signerPubKey;
+        const recipientAddress = options.recipientRawAddress ? Address.createFromRawAddress(options.recipientRawAddress) : undefined;
+        const mosaicInfo = await MosaicUtil.getMosaicInfo(node.url, options.mosaicIdHex);
+        const divisibility = mosaicInfo.divisibility;
+        const mosaicId = options.mosaicIdHex ? new MosaicId(options.mosaicIdHex) : undefined;
+        const repositoryFactory = new RepositoryFactoryHttp(node.url);
+        const transactionHttp = repositoryFactory.createTransactionRepository();
+
+        const searchCriteria = {
+            group: TransactionGroup.Confirmed,
+            signerPublicKey,
+            recipientAddress,
+            pageSize: 100,
+            pageNumber: 1,
+            type: [TransactionType.TRANSFER],
+        };
+
+        transactionHttp
+        .search(searchCriteria)
+        .pipe(
+        map((_) => _.data),
+        // Process each transaction individually.
+        mergeMap((_) => _),
+        // Map transaction as transfer transaction.
+        map((_) => _ as TransferTransaction),
+        // Filter transactions containing a given mosaic
+        filter((_) => mosaicId ? _.mosaics.length === 1 && _.mosaics[0].id.equals(mosaicId) : true),
+        // Transform absolute amount to relative amount.
+        map((_) => _.mosaics[0].amount.compact() / Math.pow(10, divisibility)),
+        // Add all amounts into an array.
+        toArray(),
+        // Sum all the amounts.
+        map((_) => _.reduce((a: any, b: any) => a + b, 0)),
+        )
+        .subscribe(
+            (total) =>
+                console.log(
+                'Total:',
+                total,
+                ),
+            (err) => console.error(err),
+        );
     }
 }
