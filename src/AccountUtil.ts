@@ -57,6 +57,11 @@ export class AccountUtil {
         return Address.createFromPublicKey(publicKey, network);
     }
 
+    public static async getPublicKeyFromAddress(rawAddress: string) {
+        const accountInfo = await AccountUtil.getAccountInfo(rawAddress);
+        return accountInfo.publicKey;
+    }
+
     public static isAddressValid(rawAddress: string) {
         return Address.isValidRawAddress(rawAddress);
     }

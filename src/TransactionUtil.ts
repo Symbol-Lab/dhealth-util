@@ -1,4 +1,4 @@
-import { Account, Address, Deadline, Mosaic, MosaicId, MosaicUtil, NamespaceId, NetworkType, PlainMessage, RepositoryFactoryHttp, SignedTransaction, Transaction, TransactionAnnounceResponse, TransactionGroup, TransactionService, TransactionType, TransferTransaction, UInt64 } from "./";
+import { Account, AccountUtil, Address, Deadline, Mosaic, MosaicId, MosaicUtil, NamespaceId, NetworkType, PlainMessage, RepositoryFactoryHttp, SignedTransaction, Transaction, TransactionAnnounceResponse, TransactionGroup, TransactionService, TransactionType, TransferTransaction, UInt64 } from "./";
 import * as config from './NetworkConfig';
 import { NetworkUtil } from "./NetworkUtil";
 import { NetworkConfig } from ".";
@@ -117,11 +117,12 @@ export class TransactionUtil {
      * @param mosaicIdHex
      * @returns all outgoing transactions
      */
-    public static async getOutgoingTransactions(rawAddress: string, signerPubKey: string, group: TransactionGroup, pageNumber: number, pageSize: number, mosaicIdHex?: string) {
+    public static async getOutgoingTransactions(rawAddress: string, group: TransactionGroup, pageNumber: number, pageSize: number, mosaicIdHex?: string) {
         const networkType = NetworkUtil.getNetworkTypeFromAddress(rawAddress);
         const node = await NetworkUtil.getNodeFromNetwork(networkType);
         const repositoryFactory = new RepositoryFactoryHttp(node.url);
         const transactionHttp = repositoryFactory.createTransactionRepository();
+        const signerPubKey = await AccountUtil.getPublicKeyFromAddress(rawAddress);
         const searchCriteria = {
             signerPublicKey: signerPubKey,
             group: group,
