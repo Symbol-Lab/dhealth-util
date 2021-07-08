@@ -22,7 +22,8 @@ async function run() {
      * Get Account info
      */
     let result = await dhealth_utils.AccountUtil.getAccountInfo('TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ');
-    console.log(result);
+    console.log(result.mosaics[0].id.toHex());
+    console.log(result.mosaics[0].amount.toString());
 
     await dhealth_utils.TransactionUtil.getMosaicSent({
         recipientRawAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
@@ -32,7 +33,7 @@ async function run() {
     /**
      * Get mosaic info
      */
-    result = await dhealth_utils.MosaicUtil.getMosaicInfo('https://api-01.dhealth.dev:3001', '5A4935C1D66E6AC4');
+    result = await dhealth_utils.MosaicUtil.getMosaicInfo(dhealth_utils.NetworkType.TEST_NET, '5A4935C1D66E6AC4');
     console.log(result);
 
     /**

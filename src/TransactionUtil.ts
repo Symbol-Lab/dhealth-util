@@ -140,7 +140,7 @@ export class TransactionUtil {
         const node = await NetworkUtil.getNodeFromNetwork(networkType);
         const signerPublicKey = options.signerPubKey;
         const recipientAddress = options.recipientRawAddress ? Address.createFromRawAddress(options.recipientRawAddress) : undefined;
-        const mosaicInfo = await MosaicUtil.getMosaicInfo(node.url, options.mosaicIdHex);
+        const mosaicInfo = await MosaicUtil.getMosaicInfo(networkType, options.mosaicIdHex);
         const divisibility = mosaicInfo.divisibility;
         const mosaicId = options.mosaicIdHex ? new MosaicId(options.mosaicIdHex) : undefined;
         const repositoryFactory = new RepositoryFactoryHttp(node.url);
