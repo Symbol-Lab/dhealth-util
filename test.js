@@ -21,14 +21,19 @@ async function run() {
     /**
      * Get Account info
      */
-    let result = await dhealth_utils.AccountUtil.getAccountInfo('TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ');
-    console.log(result.mosaics[0].id.toHex());
-    console.log(result.mosaics[0].amount.toString());
+    let result = await dhealth_utils.AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
+    console.log(result.mosaics);
 
     await dhealth_utils.TransactionUtil.getMosaicSent({
         recipientRawAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
         mosaicIdHex: '5A4935C1D66E6AC4'
     });
+
+    /**
+     * Get Address from public key
+     */
+    const address = dhealth_utils.AccountUtil.getWalletAddressFromPublicKey('414C930BB85456B6A3D03EEA025532F6D54F3A763612072895FC5808ED9367FD', dhealth_utils.NetworkType.TEST_NET);
+    console.log(address);
 
     /**
      * Get mosaic info
@@ -45,9 +50,22 @@ async function run() {
     console.log(JSON.stringify(result));
 
     result = await dhealth_utils.TransactionUtil.getOutgoingTransactions(
-        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'confirmed', 1, 2, '5A4935C1D66E6AC4'
+        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'confirmed', 1, 1, '5A4935C1D66E6AC4'
     );
     console.log(result);
+
+    /**
+     * Get network timestamp
+     */
+    const block = await dhealth_utils.BlockchainUtil.getBlockByHeightUInt64(
+        dhealth_utils.NetworkType.TEST_NET,
+        result[0].transactionInfo.height
+    );
+    const timestampUInt64 = block.timestamp;
+    const networkTimestamp = dhealth_utils.NetworkUtil.getNetworkTimestampFromUInt64(
+        dhealth_utils.NetworkType.TEST_NET, timestampUInt64
+    )
+    console.log(networkTimestamp);
 
     /**
      * Get latest block
