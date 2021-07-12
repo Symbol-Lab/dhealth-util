@@ -1,9 +1,28 @@
-import { Account, AccountUtil, Address, Deadline, Mosaic, MosaicId, MosaicUtil, NamespaceId, NetworkType, PlainMessage, RepositoryFactoryHttp, SignedTransaction, Transaction, TransactionAnnounceResponse, TransactionGroup, TransactionService, TransactionType, TransferTransaction, UInt64 } from "./";
-import * as config from './NetworkConfig';
-import { NetworkUtil } from "./NetworkUtil";
-import { NetworkConfig } from ".";
+import {
+    Account,
+    AccountUtil,
+    Address,
+    BlockchainUtil,
+    Deadline,
+    Mosaic,
+    MosaicId,
+    MosaicUtil,
+    NamespaceId,
+    NetworkConfig,
+    NetworkType,
+    NetworkUtil,
+    PlainMessage,
+    RepositoryFactoryHttp,
+    SignedTransaction,
+    Transaction,
+    TransactionAnnounceResponse,
+    TransactionGroup,
+    TransactionSearchCriteria,
+    TransactionType,
+    TransferTransaction,
+    UInt64
+} from ".";
 import { map, mergeMap, filter, toArray } from 'rxjs/operators';
-import { TransactionSearchCriteria } from "symbol-sdk";
 
 export class TransactionUtil {
     public static async sendTransferTransaction(
@@ -40,7 +59,7 @@ export class TransactionUtil {
 
     public static async createTransferTransaction(networkType: NetworkType, recipientAddress: string, aliasedMosaics: Mosaic[], plainMessage: string, maxFee: number) {
         return TransferTransaction.create(
-            Deadline.create(config.networks[networkType].networkConfigurationDefaults.epochAdjustment),
+            Deadline.create(NetworkConfig.networks[networkType].networkConfigurationDefaults.epochAdjustment),
             Address.createFromRawAddress(recipientAddress),
             aliasedMosaics,
             PlainMessage.create(plainMessage),
@@ -181,5 +200,16 @@ export class TransactionUtil {
                 ),
             (err) => console.error(err),
         );
+    }
+
+    public static async getTimestampFromTransaction(transaction: Transaction) {
+        if (!transaction.transactionInfo) {
+            throw new Error("Transaction object doesn't have transactionInfo value");
+        }
+        const height = transaction.transactionInfo.height;
+        const networkType = transaction.networkType;
+        const block = await BlockchainUtil.getBlockByHeightUInt64(networkType, height);
+        const timestamp = NetworkUtil.getNetworkTimestampFromUInt64(networkType, block.timestamp);
+        return timestamp;
     }
 }

@@ -52,7 +52,13 @@ async function run() {
     result = await dhealth_utils.TransactionUtil.getOutgoingTransactions(
         'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'confirmed', 1, 1, '5A4935C1D66E6AC4'
     );
-    console.log(result);
+    // console.log(result);
+
+    /**
+     * Get timestamp from transaction
+     */
+    const timestamp = await dhealth_utils.TransactionUtil.getTimestampFromTransaction(result[0]);
+    console.log(timestamp);
 
     /**
      * Get network timestamp
