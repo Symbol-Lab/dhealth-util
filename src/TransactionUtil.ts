@@ -41,11 +41,11 @@ export class TransactionUtil {
         }
         const transferTransaction = await this.createTransferTransaction(networkType, recipientAddress, aliasedMosaics, plainMessage, maxFee);
         const account = Account.createFromPrivateKey(privateKey, networkType);
-        const signedTransaction = await this.signTransaction(networkType, account, transferTransaction);
+        const signedTransaction = await this.signTransaction(account, transferTransaction);
         console.log('Payload:', signedTransaction.payload);
         console.log('Transaction Hash:', signedTransaction.hash);
 
-        const response = (await this.announceTransaction(networkType, signedTransaction));
+        const response = (await this.announceTransaction(signedTransaction));
         return response;
     }
 
@@ -68,7 +68,8 @@ export class TransactionUtil {
         );
     }
 
-    public static async signTransaction(networkType: NetworkType, account: Account, transaction: Transaction) {
+    public static async signTransaction(account: Account, transaction: Transaction) {
+        const networkType = transaction.networkType;
         const networkGenerationHash = NetworkConfig.networks[networkType].networkConfigurationDefaults.generationHash;
         const signedTransaction = account.sign(
             transaction,
@@ -77,7 +78,8 @@ export class TransactionUtil {
         return signedTransaction;
     }
 
-    public static async announceTransaction(networkType: NetworkType, signedTransaction: SignedTransaction): Promise<TransactionAnnounceResponse> {
+    public static async announceTransaction(signedTransaction: SignedTransaction): Promise<TransactionAnnounceResponse> {
+        const networkType = signedTransaction.networkType;
         const node = await NetworkUtil.getNodeFromNetwork(networkType);
         const repositoryFactory = new RepositoryFactoryHttp(node.url);
         const transactionHttp = repositoryFactory.createTransactionRepository();
