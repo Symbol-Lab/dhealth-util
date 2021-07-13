@@ -10,6 +10,7 @@ import * as NetworkConfig from './NetworkConfig'
 import {
   Account,
   Address,
+  Crypto,
   EncryptedMessage,
   NetworkType,
   Password,
@@ -62,6 +63,7 @@ export {
   // symbol-sdk
   Account,
   Address,
+  Crypto,
   EncryptedMessage,
   NetworkType,
   Password,
