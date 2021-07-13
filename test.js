@@ -89,7 +89,6 @@ async function run() {
      * create tx
      */
     await dhealth_utils.TransactionUtil.sendTransferTransaction(
-        'https://api-01.dhealth.dev:3001',
         152, '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B',
         'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', [{namespaceId: 'dhealth.dhp', amount: 100000}], `test create transfer tx - ${new Date().getTime()}`, 100000
     ).catch(err => {

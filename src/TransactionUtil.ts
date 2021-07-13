@@ -26,7 +26,6 @@ import { map, mergeMap, filter, toArray } from 'rxjs/operators';
 
 export class TransactionUtil {
     public static async sendTransferTransaction(
-        nodeUrl: string,
         networkType: NetworkType,
         privateKey: string,
         recipientAddress: string, 
