@@ -1,6 +1,6 @@
 {
   "name": "dhealth-utils",
-  "version": "0.0.20",
+  "version": "0.0.30",
   "description": "Utility library for dHealth",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
