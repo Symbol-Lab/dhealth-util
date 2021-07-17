@@ -3,8 +3,11 @@ const SimpleWallet = dhealth_utils.SimpleWallet;
 
 run();
 runHD();
+query();
 
 async function run() {
+    const addr = dhealth_utils.AccountUtil.getWalletAddressFromPublicKey('D9D69E7F6685BE1F337AF85A3F46E08431A356B4E23293CFBE25E9A8797C0B67', dhealth_utils.NetworkType.MAIN_NET);
+    console.log(addr);
     /**
      * create account
      */
@@ -89,8 +92,12 @@ async function run() {
      * create tx
      */
     await dhealth_utils.TransactionUtil.sendTransferTransaction(
-        152, '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B',
-        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', [{namespaceId: 'dhealth.dhp', amount: 100000}], `test create transfer tx - ${new Date().getTime()}`, 100000
+        104,
+        '486D6CF5798C0B9BD1107BA622190372F018ABB5A4712F72A92222D3403D5EC3',
+        'NBNEW47D2U74UO3CI2K53K3GMEXDXOI4VC6COUA',
+        [{namespaceId: 'dhealth.dhp', amount: 0}],
+        `00000000000000000000000000000000d001010801120b41636d6520506861726d6118b9db9ec30722060890e09088062a3868747470733a2f2f61636d652e6869742e666f756e646174696f6e2f7265646361702f737572766579732f3f733d585937544b4c584c43593080ade204a81f01b201244c69666520776974682068656d6f7068696c69613a20496e697469616c20737572766579ba013c4f626a6563746976653a20556e6465727374616e6420746865206368616c6c656e676573206f662068656d6f7068696c69612070617469656e74732ec001d08c01e2014035363630363741383335443546333332384335333246364146454537444538373836314637333638354136443942324234373435304245334535303737323742`,
+        100000
     ).catch(err => {
         console.log(err);
     });
@@ -162,4 +169,21 @@ function runHD() {
         nw.valueOf()
     );
     console.log(createdWallet.toDTO());
+}
+
+async function query() {
+    const c = new dhealth_utils.Constants(
+        dhealth_utils.NetworkType.MAIN_NET,
+        'ND5SGD5Y6NYY4ZG7EG32BS36LDY237BL3Y3U3RA',
+        'NBNEW47D2U74UO3CI2K53K3GMEXDXOI4VC6COUA'
+    );
+    const a = new dhealth_utils.AccountHttp(
+        (await dhealth_utils.NetworkUtil.getNodeFromNetwork(dhealth_utils.NetworkType.MAIN_NET)).url
+    );
+    const ds = new dhealth_utils.DHealthService(c, a);
+    const qs = new dhealth_utils.QueryService(c, ds);
+    await qs.updateQUeryInfoList()
+    const qil = await qs.getQueryInfoList();
+    console.log('===== queries list: ===== : ', qil);
+    console.log('===== number of queries: =====', await qs.getNumberQuery());
 }

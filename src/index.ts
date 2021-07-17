@@ -6,6 +6,12 @@ import { MosaicUtil } from './MosaicUtil'
 import { NetworkUtil } from './NetworkUtil'
 import * as NetworkConfig from './NetworkConfig'
 
+import {
+  Constants,
+  DHealthService,
+  QueryService
+} from './centiva'
+
 // symbol-sdk
 import {
   Account,
@@ -55,13 +61,18 @@ import {
 import { Network, Wallet } from 'symbol-hd-wallets';
 
 export {
-  // This library
+  // This library - dhealth-blockchain
   AccountUtil,
   BlockchainUtil,
   TransactionUtil,
   MosaicUtil,
   NetworkConfig,
   NetworkUtil,
+
+  // This library - query
+  Constants,
+  DHealthService,
+  QueryService,
 
   // symbol-sdk
   Account,
