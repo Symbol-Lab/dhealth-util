@@ -110,7 +110,7 @@ export class TransactionUtil {
      * @param mosaicIdHex
      * @returns all incoming transactions
      */
-    public static async getIncommingTransactions(rawAddress: string, group: TransactionGroup, pageNumber: number, pageSize: number, mosaicIdHex?: string) {
+    public static async getIncomingTransactions(rawAddress: string, group: TransactionGroup, pageNumber: number, pageSize: number, mosaicIdHex?: string) {
         const address = Address.createFromRawAddress(rawAddress);
         const networkType = NetworkUtil.getNetworkTypeFromAddress(rawAddress);
         const node = await NetworkUtil.getNodeFromNetwork(networkType);

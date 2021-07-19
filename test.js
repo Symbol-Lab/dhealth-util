@@ -44,7 +44,7 @@ async function run() {
     /**
      * Get transactions
      */
-    result = await dhealth_utils.TransactionUtil.getIncommingTransactions(
+    result = await dhealth_utils.TransactionUtil.getIncomingTransactions(
         'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'confirmed', 1, 1, '5A4935C1D66E6AC4'
     );
     console.log(JSON.stringify(result));
