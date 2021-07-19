@@ -1,5 +1,21 @@
-import { Account, AggregateTransaction, Deadline, MosaicDefinitionTransaction, MosaicFlags, MosaicId, MosaicInfo, MosaicNonce, MosaicSupplyChangeAction, MosaicSupplyChangeTransaction, NetworkType, RepositoryFactoryHttp, UInt64 } from "symbol-sdk";
-import { NetworkConfig } from './'
+import {
+  Account,
+  AggregateTransaction,
+  Deadline,
+  MosaicDefinitionTransaction,
+  MosaicFlags,
+  MosaicId,
+  MosaicInfo,
+  MosaicNonce,
+  MosaicSupplyChangeAction,
+  MosaicSupplyChangeTransaction,
+  NamespaceId,
+  NetworkConfig,
+  NetworkType,
+  NetworkUtil,
+  RepositoryFactoryHttp,
+  UInt64
+} from "./";
 
 export class MosaicUtil {
 
@@ -69,10 +85,11 @@ export class MosaicUtil {
     );
   }
 
-  public static async getMosaicInfo(nodeUrl: string, mosaicIdHex: string): Promise<MosaicInfo> {
-    return new Promise((resolve, reject) => {
+  public static async getMosaicInfo(networkType: NetworkType, mosaicIdHex: string): Promise<MosaicInfo> {
+    return new Promise(async (resolve, reject) => {
+      const node = await NetworkUtil.getNodeFromNetwork(networkType);
       const mosaicId = new MosaicId(mosaicIdHex);
-      const repositoryFactory = new RepositoryFactoryHttp(nodeUrl);
+      const repositoryFactory = new RepositoryFactoryHttp(node.url);
       const mosaicHttp = repositoryFactory.createMosaicRepository();
 
       mosaicHttp.getMosaic(mosaicId).subscribe(
@@ -80,5 +97,14 @@ export class MosaicUtil {
         (err) => reject(err),
       );
     })
+  }
+
+  public static async getMosaicIdFromNamespace(networkType: NetworkType, namespace: string) {
+    const node = await NetworkUtil.getNodeFromNetwork(networkType);
+    const namespaceId = new NamespaceId(namespace);
+    const repositoryFactory = new RepositoryFactoryHttp(node.url);
+    const namespaceHttp = repositoryFactory.createNamespaceRepository();
+    const mosaicId = await namespaceHttp.getLinkedMosaicId(namespaceId).toPromise();
+    return mosaicId?.toHex();
   }
 }

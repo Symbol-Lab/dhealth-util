@@ -21,47 +21,76 @@ async function run() {
     /**
      * Get Account info
      */
-    let result = await dhealth_utils.AccountUtil.getAccountInfo('TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ');
-    console.log(result);
+    let result = await dhealth_utils.AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
+    console.log(result.mosaics);
 
-    await dhealth_utils.AccountUtil.getMosaicSent({
+    await dhealth_utils.TransactionUtil.getMosaicSent({
         recipientRawAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
         mosaicIdHex: '5A4935C1D66E6AC4'
     });
 
     /**
+     * Get Address from public key
+     */
+    const address = dhealth_utils.AccountUtil.getWalletAddressFromPublicKey('414C930BB85456B6A3D03EEA025532F6D54F3A763612072895FC5808ED9367FD', dhealth_utils.NetworkType.TEST_NET);
+    console.log(address);
+
+    /**
      * Get mosaic info
      */
-    result = await dhealth_utils.MosaicUtil.getMosaicInfo('https://api-01.dhealth.dev:3001', '5A4935C1D66E6AC4');
+    result = await dhealth_utils.MosaicUtil.getMosaicInfo(dhealth_utils.NetworkType.TEST_NET, '5A4935C1D66E6AC4');
     console.log(result);
 
     /**
      * Get transactions
      */
-    result = await dhealth_utils.AccountUtil.getTransactions(
-        'https://api-01.dhealth.dev:3001', 'confirmed', 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 1, 1, '5A4935C1D66E6AC4'
+    result = await dhealth_utils.TransactionUtil.getIncomingTransactions(
+        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'confirmed', 1, 1, '5A4935C1D66E6AC4'
+    );
+    console.log(JSON.stringify(result));
+
+    result = await dhealth_utils.TransactionUtil.getOutgoingTransactions(
+        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 'confirmed', 1, 1, '5A4935C1D66E6AC4'
     );
     console.log(result);
 
     /**
+     * Get timestamp from transaction
+     */
+    const timestamp = await dhealth_utils.TransactionUtil.getTimestampFromTransaction(result[0]);
+    console.log(timestamp);
+
+    /**
+     * Get network timestamp
+     */
+    const block = await dhealth_utils.BlockchainUtil.getBlockByHeightUInt64(
+        dhealth_utils.NetworkType.TEST_NET,
+        result[0].transactionInfo.height
+    );
+    const timestampUInt64 = block.timestamp;
+    const networkTimestamp = dhealth_utils.NetworkUtil.getNetworkTimestampFromUInt64(
+        dhealth_utils.NetworkType.TEST_NET, timestampUInt64
+    )
+    console.log(networkTimestamp);
+
+    /**
      * Get latest block
      */
-    result = await dhealth_utils.BlockchainUtil.getLatestBlock('https://api-01.dhealth.dev:3001');
+    result = await dhealth_utils.BlockchainUtil.getLatestBlock(dhealth_utils.NetworkType.TEST_NET);
     console.log(result);
 
     /**
      * Get mosaic ID from namespace
      */
-    result = await dhealth_utils.BlockchainUtil.getMosaicIdFromNamespace('https://api-01.dhealth.dev:3001', 'dhealth.dhp');
+    result = await dhealth_utils.MosaicUtil.getMosaicIdFromNamespace('https://api-01.dhealth.dev:3001', 'dhealth.dhp');
     console.log(result);
 
     /**
      * create tx
      */
     await dhealth_utils.TransactionUtil.sendTransferTransaction(
-        'http://61.27.29.85:3000',
-        152, '09E8303C4D6ECB45F8431A1C27380CB91C941F595A2E5AA6384C73F3AD907126',
-        'TDG7K4QTI4Z6BDVM7LI2OWMCBS6IA5IKKHXXCGY', [{namespaceId: 'symbol.xym', amount: 100000}], 'test create transfer tx from sdk', 100000
+        152, '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B',
+        'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', [{namespaceId: 'dhealth.dhp', amount: 100000}], `test create transfer tx - ${new Date().getTime()}`, 100000
     ).catch(err => {
         console.log(err);
     });

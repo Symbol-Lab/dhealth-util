@@ -107,8 +107,11 @@ export const defaultMainnetNetworkConfig: NetworkConfig = {
         generationHash: 'ED5761EA890A096C50D3F50B7C2F0CCB4B84AFC9EA870F381E84DDE36D04EF16',
     },
     nodes: [
-        { friendlyName: 'mainnet-node-centiva-1', roles: 2, url: 'http://api-01.dhealth.cloud:3000' },
-        { friendlyName: 'mainnet-node-centiva-1', roles: 2, url: 'http://api-02.dhealth.cloud:3000' }
+        { friendlyName: 'api-01-dhealth', roles: 2, url: 'http://api-01.dhealth.cloud:3000' },
+        { friendlyName: 'api-02-dhealth', roles: 2, url: 'http://api-02.dhealth.cloud:3000' },
+        { friendlyName: 'dual-01-dhealth', roles: 2, url: 'http://dual-01.dhealth.cloud:3000' },
+        { friendlyName: 'dual-02-dhealth', roles: 2, url: 'http://dual-02.dhealth.cloud:3000' },
+        { friendlyName: 'dual-03-dhealth', roles: 2, url: 'http://dual-03.dhealth.cloud:3000' }
     ],
 };
 
