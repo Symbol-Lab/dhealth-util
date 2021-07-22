@@ -21,7 +21,7 @@ import {
     TransactionType,
     TransferTransaction,
     UInt64
-} from ".";
+} from "../";
 import { map, mergeMap, filter, toArray } from 'rxjs/operators';
 
 export class TransactionUtil {

@@ -15,7 +15,7 @@ import {
   NetworkUtil,
   RepositoryFactoryHttp,
   UInt64
-} from "./";
+} from "..";
 
 export class MosaicUtil {
 

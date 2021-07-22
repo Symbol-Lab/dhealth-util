@@ -1,6 +1,6 @@
 import { Account, Address, NetworkType, RepositoryFactoryHttp } from 'symbol-sdk';
 import { ExtendedKey, MnemonicPassPhrase, Network, Wallet } from 'symbol-hd-wallets';
-import { NetworkUtil } from './'
+import { NetworkUtil } from '..'
 
 
 export class AccountUtil {

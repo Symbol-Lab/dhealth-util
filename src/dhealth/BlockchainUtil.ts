@@ -1,5 +1,5 @@
 import { BlockInfo, NetworkType, RepositoryFactoryHttp, UInt64 } from 'symbol-sdk';
-import { NetworkUtil } from './NetworkUtil';
+import { NetworkUtil } from '..';
 
 export class BlockchainUtil {
     public static async getBlockByHeight(networkType: NetworkType, height: number): Promise<BlockInfo> {

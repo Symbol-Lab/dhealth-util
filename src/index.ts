@@ -1,10 +1,10 @@
 // This library
-import { AccountUtil } from './AccountUtil'
-import { BlockchainUtil } from './BlockchainUtil'
-import { TransactionUtil } from './TransactionUtil'
-import { MosaicUtil } from './MosaicUtil'
-import { NetworkUtil } from './NetworkUtil'
-import * as NetworkConfig from './NetworkConfig'
+import { AccountUtil } from './dhealth/AccountUtil'
+import { BlockchainUtil } from './dhealth/BlockchainUtil'
+import { TransactionUtil } from './dhealth/TransactionUtil'
+import { MosaicUtil } from './dhealth/MosaicUtil'
+import { NetworkUtil } from './dhealth/NetworkUtil'
+import * as NetworkConfig from './dhealth/NetworkConfig'
 
 // symbol-sdk
 import {
@@ -53,6 +53,59 @@ import {
 
 // symbol-hd-wallet
 import { Network, Wallet } from 'symbol-hd-wallets';
+
+// centiva services/models
+import {
+  // Services
+  Constant,
+  AppConstants,
+  HealthDataService,
+  ProviderPatientService,
+  QueriesService, QueriesParserCondition, QueriesStatus,
+  TransactionHistoryService,
+
+  // Models
+  AppPassword,
+  BasicHealthModel,
+  BranchUpdateType,
+  Countries, Country, Currency,
+  Mcrypto,
+  CurrentBalance,
+  DiagnosisPatient,
+  GeoAid, GeoAidCheckIn, GeolocationCoordinates,
+  LanguageSelector,
+  MnemonicPhrase,
+  MosaicAmountBoolean,
+  NemNode,
+  RequestTokenType,
+  PinObject,
+  PostalCode,
+
+  BasicHealth,
+  OfferUserData,
+  ChangeTokenRequest, ChangeTokenResponse,
+  ProviderRegistrationData,
+  PubHealthDailyReportFormData,
+  PubHealthDailyReportRequest, PubHealthDailyReportResponse,
+  GeoCheckinsRequest, GeoCheckinsResponse, GeoGetCheckinsRequest, GeoGetCheckinsResponse,
+  PubHealthStatusData,
+  PubHealthTestReportFormData,
+  PubHealthTestReportRequest, PubHealthTestReportResponse,
+  Query, QueryResponse,
+
+  ProviderMetaData,
+  ProviderRegis, ProviderRegisQr,
+  ProviderRegistrationModel,
+  PubHealthDailyCheckModel, PubHealthSymptomAssessmentResult,
+  PubHealthStatusModel,
+  PubHealthTestReportModel,
+  QrAccount,
+  QrDto,
+  ClassifiedQueries,
+  QueryInfo, QueryResponseData, QueryResponseModel,
+  SeekerProperties,
+  TokensResponse
+} from './centiva';
 
 export {
   // This library
@@ -108,5 +161,56 @@ export {
 
   // symbol-hd-wallet
   Network,
-  Wallet
+  Wallet,
+
+  // centiva
+  // Services
+  Constant,
+  AppConstants,
+  HealthDataService,
+  ProviderPatientService,
+  QueriesService, QueriesParserCondition, QueriesStatus,
+  TransactionHistoryService,
+
+  // Models
+  AppPassword,
+  BasicHealthModel,
+  BranchUpdateType,
+  Countries, Country, Currency,
+  Mcrypto,
+  CurrentBalance,
+  DiagnosisPatient,
+  GeoAid, GeoAidCheckIn, GeolocationCoordinates,
+  LanguageSelector,
+  MnemonicPhrase,
+  MosaicAmountBoolean,
+  NemNode,
+  RequestTokenType,
+  PinObject,
+  PostalCode,
+
+  BasicHealth,
+  OfferUserData,
+  ChangeTokenRequest, ChangeTokenResponse,
+  ProviderRegistrationData,
+  PubHealthDailyReportFormData,
+  PubHealthDailyReportRequest, PubHealthDailyReportResponse,
+  GeoCheckinsRequest, GeoCheckinsResponse, GeoGetCheckinsRequest, GeoGetCheckinsResponse,
+  PubHealthStatusData,
+  PubHealthTestReportFormData,
+  PubHealthTestReportRequest, PubHealthTestReportResponse,
+  Query, QueryResponse,
+
+  ProviderMetaData,
+  ProviderRegis, ProviderRegisQr,
+  ProviderRegistrationModel,
+  PubHealthDailyCheckModel, PubHealthSymptomAssessmentResult,
+  PubHealthStatusModel,
+  PubHealthTestReportModel,
+  QrAccount,
+  QrDto,
+  ClassifiedQueries,
+  QueryInfo, QueryResponseData, QueryResponseModel,
+  SeekerProperties,
+  TokensResponse
 }

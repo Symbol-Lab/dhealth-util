@@ -1,4 +1,4 @@
-import { NetworkType, NetworkConfig, UInt64 } from '.';
+import { NetworkType, NetworkConfig, UInt64 } from '..';
 const axios = require('axios');
 
 export class NetworkUtil {
