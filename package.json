@@ -1,6 +1,6 @@
 {
   "name": "dhealth-utils",
-  "version": "0.1.1",
+  "version": "0.1.5",
   "description": "Utility library for dHealth",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -9,7 +9,10 @@
   ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
+    "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json && npm run setup-proto",
+    "setup-proto": "npm run setup-proto-cjs && npm run setup-proto-esm",
+    "setup-proto-cjs": "cp -r src/centiva/shared/models/proto lib/cjs/centiva/shared/models",
+    "setup-proto-esm": "cp -r src/centiva/shared/models/proto lib/esm/centiva/shared/models",
     "prepublish": "npm run build"
   },
   "repository": {
