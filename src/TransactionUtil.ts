@@ -213,4 +213,14 @@ export class TransactionUtil {
         const timestamp = NetworkUtil.getNetworkTimestampFromUInt64(networkType, block.timestamp);
         return timestamp;
     }
+
+    public static transactionToJSON(transaction: Transaction): string {
+        const obj = Object.assign(
+            transaction.toJSON(),
+            {
+                transactionInfo: JSON.parse(JSON.stringify(transaction.transactionInfo))
+            }
+        );
+        return JSON.stringify(obj);
+    }
 }
