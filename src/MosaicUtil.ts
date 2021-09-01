@@ -99,7 +99,7 @@ export class MosaicUtil {
     })
   }
 
-  public static async getMosaicIdFromNamespace(networkType: NetworkType, namespace: string) {
+  public static async getMosaicIdFromNamespace(networkType: NetworkType, namespace: string | number[]) {
     const node = await NetworkUtil.getNodeFromNetwork(networkType);
     const namespaceId = new NamespaceId(namespace);
     const repositoryFactory = new RepositoryFactoryHttp(node.url);
