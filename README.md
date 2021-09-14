@@ -90,9 +90,9 @@ Join the conversation and help the community.
 - [Facebook][facebook]
 - [Telegram][telegram]
 
-[![Love Angular badge](https://img.shields.io/badge/Web-dhealth.network-blue)](https://www.dhealth.network)
 [![Twitter Follow](https://img.shields.io/twitter/follow/dHealth_Network?style=social)](https://twitter.com/dHealth_Network)
-[![Love Angular badge](https://img.shields.io/badge/Telegram-dHealthCommunity-informational?style=flat&logo=telegram)](https://t.me/dHealthCommunity)
+[![Facebook](https://img.shields.io/badge/Facebook-dhealthfoundation-blue?style=social&logo=facebook)](https://www.facebook.com/dhealthfoundation)
+[![Love Angular badge](https://img.shields.io/badge/Telegram-dHealthCommunity-informational?style=social&logo=telegram)](https://t.me/dHealthCommunity)
 
 
 <!-- [contributing]: CONTRIBUTING.md
