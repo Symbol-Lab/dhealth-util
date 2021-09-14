@@ -26,7 +26,7 @@
 </p>
 
 <p align="center">
-  <a href="https://www.npmjs.com/package/dhealth-utils">
+  <a href="https://github.com/dHealth-Symbol-Lab/dhealth-utils">
     <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/dHealth-Symbol-Lab/dhealth-utils?color=bright%20green&label=Github&logo=github">
   </a>&nbsp;
   <a href="https://www.npmjs.com/package/dhealth-utils">
