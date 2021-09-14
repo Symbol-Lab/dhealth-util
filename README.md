@@ -72,7 +72,7 @@ yarn add dhealth-utils@1.0.0
 
 ### Typescript
 ```ts
-import {...} from dhealth-utils;
+import {...} from 'dhealth-utils';
 ```
 
 ### Javascript
