@@ -44,16 +44,10 @@
 ### Prerequisites
 
 - Install [Node.js] which includes [Node Package Manager][npm]
+
 ### npm
 ```sh
 npm i dhealth-utils
-```
-```sh
-npm i dhealth-utils@{version/tag}
-
-e.g.
-npm i dhealth-utils@latest
-npm i dhealth-utils@1.0.0
 ```
 
 ### yarn
@@ -61,13 +55,6 @@ npm i dhealth-utils@1.0.0
 yarn add dhealth-utils
 ```
 
-```sh
-yarn add dhealth-utils@{version/tag}
-
-e.g.
-yarn add dhealth-utils@latest
-yarn add dhealth-utils@1.0.0
-```
 ## Import
 
 ### Typescript
