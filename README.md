@@ -331,11 +331,8 @@ const networkType = dhealth_utils.NetworkUtil.getNetworkTypeFromAddress('TA4J3PT
 
 Join the conversation and help the community.
 
-- [Twitter][twitter]
-- [Facebook][facebook]
-- [Telegram][telegram]
-
 [![Twitter Follow](https://img.shields.io/twitter/follow/dHealth_Network?style=social)](https://twitter.com/dHealth_Network)
+
 [![Facebook](https://img.shields.io/badge/Facebook-dhealthfoundation-blue?style=social&logo=facebook)](https://www.facebook.com/dhealthfoundation)
 [![Love Angular badge](https://img.shields.io/badge/Telegram-dHealthCommunity-informational?style=social&logo=telegram)](https://t.me/dHealthCommunity)
 
