@@ -70,18 +70,64 @@ const dhealth_utils = require('dhealth-utils');
 <!-- COLLAPSIBLE SECTIONS FOR USAGE -->
 ## Usage
 
+<!-- HD Wallet -->
+### <b>HD Wallet</b>
+
+<details>
+<summary>Generate HD wallet mnemonic</summary>
+<summary>Typescript</summary>
+
+```ts
+const mnemonic = AccountUtils.generateHDWalletMnemonic();
+```
+<summary>Javascript</summary>
+
+```js
+const mnemonic = dhealth_utils.AccountUtils.generateHDWalletMnemonic();
+```
+</details>
+
+<details>
+<summary>Get HD wallet from mnemonic</summary>
+<summary>Typescript</summary>
+
+```ts
+const wallet = AccountUtils.getHDWalletFromMnemonic('second snow city expect toward flash lava have pulp attack health timber');
+```
+<summary>Javascript</summary>
+
+```js
+const wallet = dhealth_utils.AccountUtils.getHDWalletFromMnemonic('second snow city expect toward flash lava have pulp attack health timber');
+```
+</details>
+
+<details>
+<summary>Derive specific child-path from HD wallet</summary>
+<summary>Typescript</summary>
+
+```ts
+const childAccount = wallet.getChildAccountPrivateKey('m/44\'/4343\'/0\'/0\'/0\'', NetworkType.TEST_NET);
+```
+<summary>Javascript</summary>
+
+```js
+const childAccount = wallet.getChildAccountPrivateKey('m/44\'/4343\'/0\'/0\'/0\'', NetworkType.TEST_NET);
+```
+</details>
+
 <!-- Account -->
 ### <b>Account</b>
+
 <details>
 <summary>Create new account</summary>
 
-#### Typescript
+<summary>Typescript</summary>
 
 ```ts
 const acc = AccountUtil.generateAccount(NetworkType.TEST_NET);
 ```
 
-### Javascript
+<summary>Javascript</summary>
 
 ```js
 const acc = dhealth_utils.AccountUtil.generateAccount(dhealth_utils.NetworkType.TEST_NET);
@@ -92,16 +138,32 @@ const acc = dhealth_utils.AccountUtil.generateAccount(dhealth_utils.NetworkType.
 <details>
 <summary>Get Account info</summary>
 
-### Typescript
+<summary>Typescript</summary>
+
 ```ts
 const accInfo = await AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
 ```
 
-### Javascript
+<summary>Javascript</summary>
+
 ```ts
 const accInfo = await dhealth_utils.AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
 ```
+</details>
 
+<details>
+<summary>Get Address from public key</summary>
+
+<summary>Typescript</summary>
+
+```ts
+const address = AccountUtil.getWalletAddressFromPublicKey('414C930BB85456B6A3D03EEA025532F6D54F3A763612072895FC5808ED9367FD', NetworkType.TEST_NET);
+```
+<summary>Javascript</summary>
+
+```ts
+const address = dhealth_utils.AccountUtil.getWalletAddressFromPublicKey('414C930BB85456B6A3D03EEA025532F6D54F3A763612072895FC5808ED9367FD', dhealth_utils.NetworkType.TEST_NET);
+```
 </details>
 
 <!-- Blockchain -->
