@@ -117,7 +117,7 @@ const childAccount = wallet.getChildAccountPrivateKey('m/44\'/4343\'/0\'/0\'/0\'
 ### <b>Account</b>
 
 <details>
-<summary>Create new account</summary>
+<summary>Create a new account</summary>
 
 #### Typescript
 
@@ -154,21 +154,97 @@ const accInfo = await dhealth_utils.AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3
 const address = AccountUtil.getWalletAddressFromPublicKey('414C930BB85456B6A3D03EEA025532F6D54F3A763612072895FC5808ED9367FD', NetworkType.TEST_NET);
 ```
 #### Javascript
-```ts
+```js
 const address = dhealth_utils.AccountUtil.getWalletAddressFromPublicKey('414C930BB85456B6A3D03EEA025532F6D54F3A763612072895FC5808ED9367FD', dhealth_utils.NetworkType.TEST_NET);
 ```
 </details>
 
 <!-- Blockchain -->
 ### <b>Blockchain</b>
-<details>
-<summary>Blockchain</summary>
 
-### Heading
-1. A numbered
-2. list
-    * With some
-    * Sub bullets
+<details>
+<summary>Get genesis block</summary>
+
+#### Typescript
+```ts
+const genesisBlock = await BlockchainUtil.getGenesisBlock(NetworkType.TEST_NET);
+```
+
+#### Javascript
+```js
+const genesisBlock = await dhealth_utils.BlockchainUtil.getGenesisBlock(NetworkType.TEST_NET);
+```
+
+</details>
+
+<details>
+<summary>Get latest block</summary>
+
+##### Typescript
+```ts
+const block = await BlockchainUtil.getLatestBlock(NetworkType.TEST_NET);
+
+console.log(block);
+```
+
+#### Javascript
+```js
+const block = await dhealth_utils.BlockchainUtil.getLatestBlock(dhealth_utils.NetworkType.TEST_NET);
+
+console.log(block);
+```
+
+</details>
+
+<details>
+<summary>Get network timestamp of a block</summary>
+
+#### Typescript
+```ts
+// block number to get timestamp
+const height = 1;
+
+// block instance
+const block = await BlockchainUtil.getBlockByHeightUInt64(
+    NetworkType.TEST_NET,
+    height
+);
+
+// block timestamp in normal (dHealth network has a separate timestamp)
+const timestampUInt64 = block.timestamp;
+
+// get timestamp of block
+const networkTimestamp = NetworkUtil.getNetworkTimestampFromUInt64(
+    NetworkType.TEST_NET, timestampUInt64
+);
+
+// print result
+console.log(networkTimestamp);
+```
+
+#### Javascript
+```js
+// block number to get timestamp
+const height = 1;
+
+// block instance
+const block = await dhealth_utils.BlockchainUtil.getBlockByHeightUInt64(
+    dhealth_utils.NetworkType.TEST_NET,
+    height
+);
+
+// block timestamp in normal (dHealth network has a separate timestamp)
+const timestampUInt64 = block.timestamp;
+
+// get timestamp of block
+const networkTimestamp = dhealth_utils.NetworkUtil.getNetworkTimestampFromUInt64(
+    dhealth_utils.NetworkType.TEST_NET, timestampUInt64
+);
+
+// print result
+console.log(networkTimestamp);
+```
+
 </details>
 
 <!-- Mosaic -->
