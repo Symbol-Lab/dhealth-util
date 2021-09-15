@@ -64,10 +64,115 @@ import {...} from 'dhealth-utils';
 
 ### Javascript
 ```js
-const dhealth = require('dhealth-utils');
+const dhealth_utils = require('dhealth-utils');
 ```
 
+<!-- COLLAPSIBLE SECTIONS FOR USAGE -->
+## Usage
 
+<!-- Account -->
+### <b>Account</b>
+<details>
+<summary>Create new account</summary>
+
+#### Typescript
+
+```ts
+const acc = AccountUtil.generateAccount(NetworkType.TEST_NET);
+```
+
+### Javascript
+
+```js
+const acc = dhealth_utils.AccountUtil.generateAccount(dhealth_utils.NetworkType.TEST_NET);
+```
+
+</details>
+
+<details>
+<summary>Get Account info</summary>
+
+### Typescript
+```ts
+const accInfo = await AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
+```
+
+### Javascript
+```ts
+const accInfo = await dhealth_utils.AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
+```
+
+</details>
+
+<!-- Blockchain -->
+### <b>Blockchain</b>
+<details>
+<summary>Blockchain</summary>
+
+### Heading
+1. A numbered
+2. list
+    * With some
+    * Sub bullets
+</details>
+
+<!-- Mosaic -->
+### <b>Mosaic</b>
+<details>
+<summary>Mosaic</summary>
+
+### Heading
+1. A numbered
+2. list
+    * With some
+    * Sub bullets
+</details>
+
+<!-- Network -->
+### <b>Network</b>
+<details>
+<summary>Network</summary>
+
+### Heading
+1. A numbered
+2. list
+    * With some
+    * Sub bullets
+
+    <details>
+    <summary>Account</summary>
+
+    ### Heading
+    1. A numbered
+    2. list
+        * With some
+        * Sub bullets
+    </details>
+</details>
+
+<!-- Transaction -->
+### <b>Transaction</b>
+<details>
+<summary>Transaction</summary>
+
+### Heading
+1. A numbered
+2. list
+    * With some
+    * Sub bullets
+
+    <details>
+    <summary>Account</summary>
+
+    ### Heading
+    1. A numbered
+    2. list
+        * With some
+        * Sub bullets
+    </details>
+</details>
+
+<!-- COLLAPSIBLE SECTIONS FOR USAGE -->
 
 ## Community
 
