@@ -294,10 +294,12 @@ const isNodeUp = await dhealth_utils.NetworkUtil.nodeIsUp('https://api-01.dhealt
 
 #### Typescript
 ```ts
+const networkType = NetworkUtil.getNetworkTypeFromAddress('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
 ```
 
 #### Javascript
 ```js
+const networkType = dhealth_utils.NetworkUtil.getNetworkTypeFromAddress('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
 ```
 </details>
 
