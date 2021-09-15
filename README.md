@@ -1,7 +1,7 @@
 <h1 align="center">dHealth-utils - The dHealth chain utility.</h1>
 
 <p align="center">
-  <img src="https://dhealth.network/wp-content/uploads/2021/08/dHealth-Network-Logo-blue.png" alt="angular-logo" width="577" height="100"/>
+  <img src="https://dhealth.network/wp-content/uploads/2021/08/dHealth-Network-Logo-blue.png" alt="angular-logo" width="277" height="57"/>
   <br>
   <i>dHealth chain utility is a development library for performing operations and writing applications
   <br> on dHealth network using Typescript and JavaScript.</i>
