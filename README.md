@@ -75,12 +75,12 @@ const dhealth_utils = require('dhealth-utils');
 
 <details>
 <summary>Generate HD wallet mnemonic</summary>
-<summary>Typescript</summary>
 
+#### Typescript
 ```ts
 const mnemonic = AccountUtils.generateHDWalletMnemonic();
 ```
-<summary>Javascript</summary>
+#### Javascript
 
 ```js
 const mnemonic = dhealth_utils.AccountUtils.generateHDWalletMnemonic();
@@ -89,13 +89,12 @@ const mnemonic = dhealth_utils.AccountUtils.generateHDWalletMnemonic();
 
 <details>
 <summary>Get HD wallet from mnemonic</summary>
-<summary>Typescript</summary>
 
+#### Typescript
 ```ts
 const wallet = AccountUtils.getHDWalletFromMnemonic('second snow city expect toward flash lava have pulp attack health timber');
 ```
-<summary>Javascript</summary>
-
+#### Javascript
 ```js
 const wallet = dhealth_utils.AccountUtils.getHDWalletFromMnemonic('second snow city expect toward flash lava have pulp attack health timber');
 ```
@@ -103,13 +102,12 @@ const wallet = dhealth_utils.AccountUtils.getHDWalletFromMnemonic('second snow c
 
 <details>
 <summary>Derive specific child-path from HD wallet</summary>
-<summary>Typescript</summary>
 
+#### Typescript
 ```ts
 const childAccount = wallet.getChildAccountPrivateKey('m/44\'/4343\'/0\'/0\'/0\'', NetworkType.TEST_NET);
 ```
-<summary>Javascript</summary>
-
+#### Javascript
 ```js
 const childAccount = wallet.getChildAccountPrivateKey('m/44\'/4343\'/0\'/0\'/0\'', NetworkType.TEST_NET);
 ```
@@ -121,14 +119,13 @@ const childAccount = wallet.getChildAccountPrivateKey('m/44\'/4343\'/0\'/0\'/0\'
 <details>
 <summary>Create new account</summary>
 
-<summary>Typescript</summary>
+#### Typescript
 
 ```ts
 const acc = AccountUtil.generateAccount(NetworkType.TEST_NET);
 ```
 
-<summary>Javascript</summary>
-
+#### Javascript
 ```js
 const acc = dhealth_utils.AccountUtil.generateAccount(dhealth_utils.NetworkType.TEST_NET);
 ```
@@ -138,14 +135,12 @@ const acc = dhealth_utils.AccountUtil.generateAccount(dhealth_utils.NetworkType.
 <details>
 <summary>Get Account info</summary>
 
-<summary>Typescript</summary>
-
+#### Typescript
 ```ts
 const accInfo = await AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
 ```
 
-<summary>Javascript</summary>
-
+#### Javascript
 ```ts
 const accInfo = await dhealth_utils.AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3G7DOH3BAW7HWSKIQJWHIBNY');
 ```
@@ -154,13 +149,11 @@ const accInfo = await dhealth_utils.AccountUtil.getAccountInfo('TA4J3PTVAHIVWDG3
 <details>
 <summary>Get Address from public key</summary>
 
-<summary>Typescript</summary>
-
+#### Typescript
 ```ts
 const address = AccountUtil.getWalletAddressFromPublicKey('414C930BB85456B6A3D03EEA025532F6D54F3A763612072895FC5808ED9367FD', NetworkType.TEST_NET);
 ```
-<summary>Javascript</summary>
-
+#### Javascript
 ```ts
 const address = dhealth_utils.AccountUtil.getWalletAddressFromPublicKey('414C930BB85456B6A3D03EEA025532F6D54F3A763612072895FC5808ED9367FD', dhealth_utils.NetworkType.TEST_NET);
 ```
