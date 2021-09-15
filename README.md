@@ -262,23 +262,43 @@ console.log(networkTimestamp);
 <!-- Network -->
 ### <b>Network</b>
 <details>
-<summary>Network</summary>
+<summary>Get an available node from network</summary>
 
-### Heading
-1. A numbered
-2. list
-    * With some
-    * Sub bullets
+#### Typescript
+```ts
+const node = await NetworkUtil.getNodeFromNetwork(NetworkType.TEST_NET);
+```
 
-    <details>
-    <summary>Account</summary>
+#### Javascript
+```js
+const node = await dhealth_utils.NetworkUtil.getNodeFromNetwork(NetworkType.TEST_NET);
+```
+</details>
 
-    ### Heading
-    1. A numbered
-    2. list
-        * With some
-        * Sub bullets
-    </details>
+<details>
+<summary>Check if a node is up</summary>
+
+#### Typescript
+```ts
+const isNodeUp = await NetworkUtil.nodeIsUp('https://api-01.dhealth.dev:3001');
+```
+
+#### Javascript
+```js
+const isNodeUp = await dhealth_utils.NetworkUtil.nodeIsUp('https://api-01.dhealth.dev:3001');
+```
+</details>
+
+<details>
+<summary>Get network type from a wallet address</summary>
+
+#### Typescript
+```ts
+```
+
+#### Javascript
+```js
+```
 </details>
 
 <!-- Transaction -->
