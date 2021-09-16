@@ -605,7 +605,7 @@ const result = await dhealth_utils.TransactionUtil.sendTransferTransaction(
     console.log(err);
 });
 ```
-</detailds>
+</details>
 
 <!------------------------------------------>
 <!-- COLLAPSIBLE SECTIONS FOR USAGE ~ END -->
