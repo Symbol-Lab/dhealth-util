@@ -66,8 +66,10 @@ import {...} from 'dhealth-utils';
 ```js
 const dhealth_utils = require('dhealth-utils');
 ```
-
+<!------------------------------------>
 <!-- COLLAPSIBLE SECTIONS FOR USAGE -->
+<!------------------------------------>
+
 ## Usage
 
 <!-- HD Wallet -->
@@ -101,16 +103,47 @@ const wallet = dhealth_utils.AccountUtils.getHDWalletFromMnemonic('second snow c
 </details>
 
 <details>
-<summary>Derive specific child-path from HD wallet</summary>
+<summary>Get master account private key from HD wallet</summary>
 
-#### Typescript
+#### Typescript & Javascript
+```js
+const masterAccountPK = wallet.getAccountPrivateKey();
+```
+</details>
+
+<details>
+<summary>Get default account private key from HD wallet</summary>
+
+#### Typescript & Javascript
+```js
+const defaultAccountPK = wallet.getChildAccountPrivateKey();
+```
+</details>
+
+<details>
+<summary>Derive specific child-path private key from HD wallet</summary>
+
+#### Typescript & Javascript
 ```ts
 const childAccount = wallet.getChildAccountPrivateKey('m/44\'/4343\'/0\'/0\'/0\'', NetworkType.TEST_NET);
 ```
+</details>
+
+<details>
+<summary>Create SimpleWallet on account private key</summary>
+
+#### Typescript
+```ts
+const privateKey = 'your-private-key';
+const simpleWallet = SimpleWallet.createFromPrivateKey('name', new Password('37777777'), privateKey, NetworkType.TEST_NET);
+```
+
 #### Javascript
 ```js
-const childAccount = wallet.getChildAccountPrivateKey('m/44\'/4343\'/0\'/0\'/0\'', NetworkType.TEST_NET);
+const privateKey = 'your-private-key';
+const simpleWallet = dhealth_utils.SimpleWallet.createFromPrivateKey('name', new dhealth_utils.Password('37777777'), privateKey, dhealth_utils.NetworkType.TEST_NET);
 ```
+
 </details>
 
 <!-- Account -->
@@ -250,13 +283,90 @@ console.log(networkTimestamp);
 <!-- Mosaic -->
 ### <b>Mosaic</b>
 <details>
-<summary>Mosaic</summary>
+<summary>Create mosaic</summary>
 
-### Heading
-1. A numbered
-2. list
-    * With some
-    * Sub bullets
+#### Typescript
+```ts
+const network = NetworkType.TEST_NET;
+const privateKey = '09E8303C4D6ECB45F8431A1C27380CB91C941F595A2E5AA6384C73F3AD907126';
+const durationBlock = 0;
+const isSupplyMutable = false;
+const isTransferable = true;
+const isRestrictable = false;
+const divisibility = 6;
+const supply = 100000000;
+
+const result = await MosaicUtil.createMosaic(
+    network,
+    privateKey,
+    durationBlock,
+    isSupplyMutable,
+    isTransferable,
+    isRestrictable,
+    divisibility,
+    supply
+)
+```
+
+#### Javascript
+```js
+const network = NetworkType.TEST_NET;
+const privateKey = '09E8303C4D6ECB45F8431A1C27380CB91C941F595A2E5AA6384C73F3AD907126';
+const durationBlock = 0;
+const isSupplyMutable = false;
+const isTransferable = true;
+const isRestrictable = false;
+const divisibility = 6;
+const supply = 100000000;
+
+const result = await dhealth_utils.MosaicUtil.createMosaic(
+    network,
+    privateKey,
+    durationBlock,
+    isSupplyMutable,
+    isTransferable,
+    isRestrictable,
+    divisibility,
+    supply
+)
+```
+
+</details>
+
+<details>
+<summary>Get mosaic ID from name</summary>
+
+#### Typescript
+```ts
+const nodeUrl = 'https://api-01.dhealth.dev:3001';
+const mosaicName = 'dhealth.dhp';
+const mosaicIdHex = await MosaicUtil.getMosaicIdFromNamespace(nodeUrl, mosaicName);
+```
+
+#### Javascript
+```js
+const nodeUrl = 'https://api-01.dhealth.dev:3001';
+const mosaicName = 'dhealth.dhp';
+const mosaicIdHex = await dhealth_utils.MosaicUtil.getMosaicIdFromNamespace(nodeUrl, mosaicName);
+```
+
+</details>
+
+<details>
+<summary>Get mosaic info from ID</summary>
+
+#### Typescript
+```ts
+const mosaicIdHex = '5A4935C1D66E6AC4';
+const mosaicInfo = await MosaicUtil.getMosaicInfo(NetworkType.TEST_NET, mosaicIdHex);
+```
+
+#### Javascript
+```js
+const mosaicIdHex = '5A4935C1D66E6AC4';
+const mosaicInfo = await dhealth_utils.MosaicUtil.getMosaicInfo(dhealth_utils.NetworkType.TEST_NET, mosaicIdHex);
+```
+
 </details>
 
 <!-- Network -->
@@ -306,26 +416,200 @@ const networkType = dhealth_utils.NetworkUtil.getNetworkTypeFromAddress('TA4J3PT
 <!-- Transaction -->
 ### <b>Transaction</b>
 <details>
-<summary>Transaction</summary>
+<summary>Get all incoming transactions</summary>
 
-### Heading
-1. A numbered
-2. list
-    * With some
-    * Sub bullets
+#### Typescript
+```ts
+const address = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
+const transactionGroup = TransactionGroup.Confirmed;
+const pageNumber = 1;
+const pageSize = 100;
+// optional - can leave null
+const mosaicIdHex = '5A4935C1D66E6AC4';
+const imcomingTxs = await TransactionUtil.getIncomingTransactions(
+    address,
+    transactionGroup,
+    pageNumber,
+    pageSize,
+    mosaicIdHex
+);
+```
 
-    <details>
-    <summary>Account</summary>
-
-    ### Heading
-    1. A numbered
-    2. list
-        * With some
-        * Sub bullets
-    </details>
+#### Javascript
+```js
+const address = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
+const transactionGroup = dhealth_utils.TransactionGroup.Confirmed;
+const pageNumber = 1;
+const pageSize = 100;
+// optional - can leave null
+const mosaicIdHex = '5A4935C1D66E6AC4';
+const incomingTxs = await dhealth_utils.TransactionUtil.getIncomingTransactions(
+    address,
+    transactionGroup,
+    pageNumber,
+    pageSize,
+    mosaicIdHex
+);
+```
 </details>
 
-<!-- COLLAPSIBLE SECTIONS FOR USAGE -->
+<details>
+<summary>Get all outgoing transactions</summary>
+
+#### Typescript
+```ts
+const address = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
+const transactionGroup = TransactionGroup.Confirmed;
+const pageNumber = 1;
+const pageSize = 100;
+// optional - can leave null
+const mosaicIdHex = '5A4935C1D66E6AC4';
+
+const outgoingTxs = await TransactionUtil.getOutgoingTransactions(
+    address,
+    transactionGroup,
+    pageNumber,
+    pageSize,
+    mosaicIdHex
+);
+```
+
+#### Javascript
+```js
+const address = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
+const transactionGroup = dhealth_utils.TransactionGroup.Confirmed;
+const pageNumber = 1;
+const pageSize = 100;
+// optional - can leave null
+const mosaicIdHex = '5A4935C1D66E6AC4';
+
+const outgoingTxs = await dhealth_utils.TransactionUtil.getOutgoingTransactions(
+    address,
+    transactionGroup,
+    pageNumber,
+    pageSize,
+    mosaicIdHex
+);
+```
+</details>
+
+<details>
+<summary>Get transactions with custom search criteria</summary>
+
+Find out more about: [TransactionSearchCriteria](https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html).
+
+| Properties | | | | | |
+|:---:|:---:|:---:|:---:|:---:|:---:|
+| [address][address] | [embedded][embedded] | [fromheight][fromheight] | [fromtransferamount][fromtransferamount] | [group][group] | [height][height] |
+| [offset][offset] | [order][order] | [pagenumber][pagenumber] | [pagesize][pagesize] | [recipientaddress][recipientaddress] | [signerpublickey][signerpublickey] |
+| [toheight][toheight] | [totransferamount][totransferamount] | [transfermosaicid][transfermosaicid] | [type][type] |
+
+
+#### Typescript
+```ts
+const networkType = NetworkType.TEST_NET;
+
+// You can modify/add more fields based on your needs
+const searchCriteria = {
+    recipientAddress: address,
+    group: group,
+    pageNumber: pageNumber,
+    pageSize: pageSize,
+    mosaicIdHex: mosaicIdHex
+}
+
+const txs = await TransactionUtil.getTransactions(
+    networkType,
+    searchCriteria
+);
+```
+
+#### Javascript
+```js
+const networkType = dhealth_utils.NetworkType.TEST_NET;
+
+// You can modify/add more fields based on your needs
+const searchCriteria = {
+    recipientAddress: address,
+    group: group,
+    pageNumber: pageNumber,
+    pageSize: pageSize,
+    mosaicIdHex: mosaicIdHex
+}
+
+const txs = await dhealth_utils.TransactionUtil.getTransactions(
+    networkType,
+    searchCriteria
+);
+```
+</details>
+
+<details>
+<summary>Get timestamp of a transaction</summary>
+
+#### Typescript
+```ts
+const transaction = incomingTxs[0];
+const timestamp = await TransactionUtil.getTimestampFromTransaction(transaction);
+```
+
+#### Javascript
+```js
+const timestamp = await dhealth_utils.TransactionUtil.getTimestampFromTransaction(transaction);
+```
+</details>
+
+</details>
+
+<details>
+<summary>Send a transfer transaction</summary>
+
+#### Typescript
+```ts
+const networkType = NetworkType.TEST_NET;
+const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B',
+const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 
+const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}],
+const plainMessage = `test create transfer tx - ${new Date().getTime()}`, 
+const maxFee = 100000; // 0.1 dhp - 1 million basic units equal 1 dhp
+
+const result = await TransactionUtil.sendTransferTransaction(
+    networkType,
+    privateKey,
+    recipientAddress,
+    mosaicDetails,
+    plainMessage,
+    maxFee
+).catch(err => {
+    console.log(err);
+});
+```
+
+#### Javascript
+```js
+const networkType = dhealth_utils.NetworkType.TEST_NET;
+const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B',
+const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 
+const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}],
+const plainMessage = `test create transfer tx - ${new Date().getTime()}`, 
+const maxFee = 100000; // 0.1 dhp - 1 million basic units equal 1 dhp
+
+const result = await dhealth_utils.TransactionUtil.sendTransferTransaction(
+    networkType,
+    privateKey,
+    recipientAddress,
+    mosaicDetails,
+    plainMessage,
+    maxFee
+).catch(err => {
+    console.log(err);
+});
+```
+</detailds>
+
+<!------------------------------------------>
+<!-- COLLAPSIBLE SECTIONS FOR USAGE ~ END -->
+<!------------------------------------------>
 
 ## Community
 
@@ -343,6 +627,25 @@ Join the conversation and help the community.
 [node.js]: https://nodejs.org/
 [npm]: https://www.npmjs.com/get-npm
 [twitter]: https://twitter.com/dHealth_Network
-[meetup]: https://www.meetup.com/find/?keywords=angular"
 [facebook]: https://www.facebook.com/dhealthfoundation
 [telegram]: https://t.me/dHealthCommunity
+
+[address]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#address
+[embedded]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#embedded
+[fromheight]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#fromheight
+[fromtransferamount]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#fromtransferamount
+[group]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#group
+[height]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#height
+
+[offset]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#offset
+
+[order]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#order
+[pagenumber]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#pagenumber
+[pagesize]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#pagesize
+[recipientaddress]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#recipientaddress
+[signerpublickey]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#signerpublickey
+
+[toheight]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#toheight
+[totransferamount]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#totransferamount
+[transfermosaicid]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#transfermosaicid
+[type]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#type
