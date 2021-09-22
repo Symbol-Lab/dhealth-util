@@ -1,6 +1,6 @@
 {
   "name": "dhealth-utils",
-  "version": "0.0.34",
+  "version": "0.2.0",
   "description": "Utility library for dHealth",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -17,6 +17,7 @@
     "url": "git+ssh://git@github.com:dHealth-Symbol-Lab/dhealth-utils.git"
   },
   "keywords": [
+    "dHealth",
     "symbol",
     "utils",
     "library",
