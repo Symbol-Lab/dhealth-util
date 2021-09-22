@@ -555,6 +555,7 @@ const timestamp = await TransactionUtil.getTimestampFromTransaction(transaction)
 
 #### Javascript
 ```js
+const transaction = incomingTxs[0];
 const timestamp = await dhealth_utils.TransactionUtil.getTimestampFromTransaction(transaction);
 ```
 </details>
@@ -567,10 +568,10 @@ const timestamp = await dhealth_utils.TransactionUtil.getTimestampFromTransactio
 #### Typescript
 ```ts
 const networkType = NetworkType.TEST_NET;
-const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B',
-const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 
-const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}],
-const plainMessage = `test create transfer tx - ${new Date().getTime()}`, 
+const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
+const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
+const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}];
+const plainMessage = `test create transfer tx - ${new Date().getTime()}`;
 const maxFee = 100000; // 0.1 dhp - 1 million basic units equal 1 dhp
 
 const result = await TransactionUtil.sendTransferTransaction(
@@ -588,10 +589,10 @@ const result = await TransactionUtil.sendTransferTransaction(
 #### Javascript
 ```js
 const networkType = dhealth_utils.NetworkType.TEST_NET;
-const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B',
-const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ', 
-const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}],
-const plainMessage = `test create transfer tx - ${new Date().getTime()}`, 
+const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
+const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
+const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}];
+const plainMessage = `test create transfer tx - ${new Date().getTime()}`;
 const maxFee = 100000; // 0.1 dhp - 1 million basic units equal 1 dhp
 
 const result = await dhealth_utils.TransactionUtil.sendTransferTransaction(
