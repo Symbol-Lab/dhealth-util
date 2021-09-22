@@ -4,8 +4,8 @@ orbs:
   node: circleci/node@4.7.0
 
 workflows:
-    example-workflow:
+    build-and-test:
       jobs:
         - node/run:
             npm-run: test 
-            override-ci-command: npm i 
+            override-ci-command: npm i
