@@ -1,0 +1,11 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@4.7.0
+
+workflows:
+    build-and-test:
+      jobs:
+        - node/run:
+            npm-run: test 
+            override-ci-command: npm i
