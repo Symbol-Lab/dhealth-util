@@ -1,0 +1,24 @@
+dist: bionic
+language: node_js
+node_js:
+  - 10
+  - 12
+services:
+  - docker
+env:
+  global:
+    - DEV_BRANCH=dev
+    - RELEASE_BRANCH=main
+    - POST_RELEASE_BRANCH=main
+    - RELEASE_MESSAGE=release
+cache:
+  directories:
+    - "node_modules"
+    - .eslintcache
+before_script:
+  - . ./travis/node-functions.sh
+  - VERSION="$(node_load_version)"
+  - log_env_variables
+script:
+  - npm run test:cov
+  - if [ "$TRAVIS_NODE_VERSION" = "10" ]; then npm run coveralls-report; fi
