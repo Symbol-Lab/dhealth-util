@@ -500,9 +500,9 @@ Find out more about: [TransactionSearchCriteria](https://docs.symbolplatform.com
 
 | Properties | | | | | |
 |:---:|:---:|:---:|:---:|:---:|:---:|
-| [address][address] | [embedded][embedded] | [fromheight][fromheight] | [fromtransferamount][fromtransferamount] | [group][group] | [height][height] |
-| [offset][offset] | [order][order] | [pagenumber][pagenumber] | [pagesize][pagesize] | [recipientaddress][recipientaddress] | [signerpublickey][signerpublickey] |
-| [toheight][toheight] | [totransferamount][totransferamount] | [transfermosaicid][transfermosaicid] | [type][type] |
+| [address][address] | [embedded][embedded] | [fromHeight][fromHeight] | [fromTransferAmount][fromTransferAmount] | [group][group] | [height][height] |
+| [offset][offset] | [order][order] | [pageNumber][pageNumber] | [pageSize][pageSize] | [recipientAddress][recipientAddress] | [signerPublicKey][signerPublicKey] |
+| [toHeight][toHeight] | [toTransferAmount][toTransferAmount] | [transferMosaicId][transferMosaicId] | [type][type] |
 
 
 #### Typescript
@@ -633,20 +633,20 @@ Join the conversation and help the community.
 
 [address]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#address
 [embedded]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#embedded
-[fromheight]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#fromheight
-[fromtransferamount]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#fromtransferamount
+[fromHeight]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#fromheight
+[fromTransferAmount]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#fromtransferamount
 [group]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#group
 [height]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#height
 
 [offset]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#offset
 
 [order]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#order
-[pagenumber]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#pagenumber
-[pagesize]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#pagesize
-[recipientaddress]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#recipientaddress
-[signerpublickey]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#signerpublickey
+[pageNumber]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#pagenumber
+[pageSize]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#pagesize
+[recipientAddress]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#recipientaddress
+[signerPublicKey]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#signerpublickey
 
-[toheight]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#toheight
-[totransferamount]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#totransferamount
-[transfermosaicid]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#transfermosaicid
+[toHeight]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#toheight
+[toTransferAmount]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#totransferamount
+[transferMosaicId]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#transfermosaicid
 [type]: https://docs.symbolplatform.com/symbol-sdk-typescript-javascript/1.0.1/interfaces/infrastructure_searchcriteria_transactionsearchcriteria.transactionsearchcriteria.html#type
