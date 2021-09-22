@@ -6,5 +6,6 @@ orbs:
 workflows:
     example-workflow:
       jobs:
-        - node/test:
-            run-command: test 
+        - node/run:
+            npm-run: test 
+            override-ci-command: npm i 
