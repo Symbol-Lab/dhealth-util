@@ -32,9 +32,15 @@
   <a href="https://www.npmjs.com/package/dhealth-utils">
     <img alt="npm" src="https://img.shields.io/npm/v/dhealth-utils?color=bright%20green&label=NPM%20Package&logo=npm">
   </a>&nbsp;
-  <a href="https://t.me/dHealthCommunity">
-    <img src="https://img.shields.io/badge/Telegram-dHealthCommunity-informational?style=flat&logo=telegram" />
+  <a href="https://circleci.com/gh/dHealth-Symbol-Lab/dhealth-utils/tree/main">
+    <!-- <img src="https://circleci.com/gh/dHealth-Symbol-Lab/dhealth-utils/tree/main.svg?style=shield"> -->
+    <img alt="CircleCI" src="https://img.shields.io/circleci/build/github/dHealth-Symbol-Lab/dhealth-utils/main?color=brightgreen&logo=circleci">
   </a>
+  <br>
+  <a href="https://t.me/dHealthCommunity">
+    <img src="https://img.shields.io/badge/Telegram-dHealthCommunity-informational?style=flat&logo=telegram" />&nbsp;
+  </a>
+  <br>
 </p>
 
 <hr>
