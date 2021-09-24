@@ -1,11 +1,14 @@
 version: 2.1
 
-orbs:
-  node: circleci/node@4.7.0
-
-workflows:
-    build-and-test:
-      jobs:
-        - node/run:
-            npm-run: test 
-            override-ci-command: npm i
+jobs:
+  build:
+    docker:
+      - image: 'circleci/node:10.0.0'
+    steps:
+      - checkout
+      - run:
+          name: Install
+          command: npm i
+      - run:
+          name: Test
+          command: npm run test

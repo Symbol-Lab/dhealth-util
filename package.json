@@ -8,7 +8,7 @@
     "lib/"
   ],
   "scripts": {
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' nyc mocha -r ts-node/register 'test/**/*.ts'",
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' nyc mocha -r ts-node/register 'test/**/*.ts' && nyc report --reporter=text-lcov | coveralls",
     "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "prepublish": "npm run build"
   },
@@ -41,6 +41,7 @@
     "@types/sinon": "^10.0.3",
     "bip32": "^1.0.4",
     "chai": "^4.3.4",
+    "coveralls": "^3.1.1",
     "mocha": "^9.1.1",
     "nyc": "^15.1.0",
     "sinon": "^11.1.2",
