@@ -27,14 +27,14 @@
 
 <p align="center">
   <a href="https://github.com/dHealth-Symbol-Lab/dhealth-utils">
-    <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/dHealth-Symbol-Lab/dhealth-utils?label=Github&logo=github">
+    <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/dHealth-Symbol-Lab/dhealth-utils?label=Github&logo=github&color=success">
   </a>&nbsp;
   <a href="https://www.npmjs.com/package/dhealth-utils">
-    <img alt="npm" src="https://img.shields.io/npm/v/dhealth-utils?label=NPM%20Package&logo=npm">
+    <img alt="npm" src="https://img.shields.io/npm/v/dhealth-utils?label=NPM%20Package&logo=npm&color=success">
   </a>&nbsp;
   <a href="https://circleci.com/gh/dHealth-Symbol-Lab/dhealth-utils/tree/main">
     <img alt="CircleCI" src="https://img.shields.io/circleci/build/github/dHealth-Symbol-Lab/dhealth-utils/main?logo=circleci&logoColor=success">
-  </a>&nbsp;
+  </a><br>
   <a href='https://coveralls.io/github/dHealth-Symbol-Lab/dhealth-utils'>
     <img alt="Coveralls" src="https://img.shields.io/coveralls/github/dHealth-Symbol-Lab/dhealth-utils?logo=coveralls">
   </a>&nbsp;
