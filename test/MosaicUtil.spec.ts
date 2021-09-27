@@ -3,7 +3,7 @@ import { Account, AggregateTransaction, MosaicDefinitionTransaction, MosaicNonce
 import  { mock } from 'ts-mockito';
 import { expect } from 'chai';
 import { MosaicFlags, MosaicHttp, MosaicId, MosaicInfo, NamespaceHttp, SignedTransaction, TransactionAnnounceResponse, TransactionHttp } from 'symbol-sdk';
-import { of, throwError } from 'rxjs';
+import { EMPTY, of, throwError } from 'rxjs';
 import { TestConstants } from './TestConstant.spec';
 import { NodeConfig } from '../src/NetworkConfig';
 
@@ -170,5 +170,28 @@ describe('MosaicUtil', () => {
         // THEN
         expect(result).to.not.be.undefined;
         sinon.assert.callOrder(stubA, stubB, stubC, stubD);
+    });
+
+    it('get mosaic Id from namespace expect null result', async () => {
+        // GIVEN
+        const mockNode: NodeConfig = {
+            roles: 1,
+            friendlyName: '',
+            url: ''
+        };
+        const stubA = sinon.stub(NetworkUtil, 'getNodeFromNetwork').returns(
+            Promise.resolve(mockNode)
+        );
+        const mockNamespaceHttp = mock(NamespaceHttp);
+        const stubB = sinon.stub(RepositoryFactoryHttp.prototype, 'createNamespaceRepository').returns(mockNamespaceHttp);
+        const mockMosaicId = mock(MosaicId);
+        const stubC = sinon.stub(mockNamespaceHttp, 'getLinkedMosaicId').returns(EMPTY);
+
+        // WHEN
+        const result = await MosaicUtil.getMosaicIdFromNamespace(TestConstants.networkType, TestConstants.mosaicNamespace);
+
+        // THEN
+        expect(result).to.be.undefined;
+        sinon.assert.callOrder(stubA, stubB, stubC);
     });
 });
