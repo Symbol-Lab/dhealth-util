@@ -1,10 +1,8 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-
 import { of } from 'rxjs';
 import {TestConstants} from './TestConstant.spec';
-import { AccountUtil, NetworkConfig, NetworkType, NetworkUtil } from '../src';
-import { AccountHttp, AccountInfo, AccountType, Address, RepositoryFactoryHttp, SupplementalPublicKeys, UInt64 } from 'symbol-sdk';
+import { AccountHttp, AccountInfo, AccountType, AccountUtil, Address, NetworkConfig, NetworkType, NetworkUtil, RepositoryFactoryHttp, SupplementalPublicKeys, UInt64 } from '../src';
 
 describe('AccountUtil', () => {
 

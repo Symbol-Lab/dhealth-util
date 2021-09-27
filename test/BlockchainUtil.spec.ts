@@ -1,11 +1,9 @@
 import { expect } from 'chai';
 import * as sinon from 'sinon';
-import  { mock, when } from 'ts-mockito';
-
+import  { mock } from 'ts-mockito';
 import { of } from 'rxjs';
-import { BlockchainUtil, NetworkUtil } from "../src";
+import { BlockchainUtil, BlockHttp, BlockInfo, ChainHttp, ChainInfo, NetworkUtil, NormalBlockInfo, RepositoryFactoryHttp, UInt64 } from "../src";
 import { TestConstants } from './TestConstant.spec';
-import { BlockHttp, BlockInfo, ChainHttp, ChainInfo, NormalBlockInfo, RepositoryFactoryHttp, UInt64 } from 'symbol-sdk';
 import { NodeConfig } from '../src/NetworkConfig';
 
 describe('BlockchainUtil', () => {

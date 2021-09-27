@@ -1,9 +1,8 @@
 import * as sinon from 'sinon';
-import { Account, AggregateTransaction, MosaicDefinitionTransaction, MosaicNonce, MosaicRepository, MosaicSupplyChangeTransaction, MosaicUtil, NetworkUtil, RepositoryFactoryHttp, UInt64 } from '../src';
-import  { mock } from 'ts-mockito';
 import { expect } from 'chai';
-import { MosaicFlags, MosaicHttp, MosaicId, MosaicInfo, NamespaceHttp, SignedTransaction, TransactionAnnounceResponse, TransactionHttp } from 'symbol-sdk';
+import  { mock } from 'ts-mockito';
 import { EMPTY, of, throwError } from 'rxjs';
+import { Account, AggregateTransaction, MosaicDefinitionTransaction, MosaicFlags, MosaicHttp, MosaicId, MosaicInfo, MosaicNonce, MosaicRepository, MosaicSupplyChangeTransaction, MosaicUtil, NamespaceHttp, NetworkUtil, RepositoryFactoryHttp, SignedTransaction, TransactionAnnounceResponse, TransactionHttp, UInt64 } from '../src';
 import { TestConstants } from './TestConstant.spec';
 import { NodeConfig } from '../src/NetworkConfig';
 
