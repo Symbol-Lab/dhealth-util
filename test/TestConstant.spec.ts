@@ -16,6 +16,8 @@ export class TestConstants {
     static accIndex0PubKey = 'E80D0BB6A847A6EBA908A8A33E65926058AEC3E084A2AD9BA9C671ABC3803A2C';
     static validAddress = 'NCUAU4XEZTYX5TWGFGO2RTGKU5VF3ZOZI2FJ4JQ';
     static invalidAddress = 'NCUAU4XEZTYX5TWGFGO2RTGKU5VF3ZOZI2FJ4J';
+    static mosaicIdHex = '5A4935C1D66E6AC4';
+    static mosaicNamespace = 'dhealth.dhp';
 
     static blockHeigh = new UInt64([1, 2]);
 }
