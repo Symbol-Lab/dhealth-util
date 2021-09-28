@@ -53,7 +53,7 @@ describe('MosaicUtil', () => {
         sinon.assert.callOrder(stubA, stubB, stubC, stubD, stubE, stubF, stubG, stubH, stubI, stubJ, stubK);
     });
 
-    it('create mosaic expect error', async () => {
+    it('create mosaic expect error handling from observable', async () => {
         // GIVEN
         const mockAcc = mock(Account);
         const stubA = sinon.stub(Account, 'createFromPrivateKey').returns(mockAcc);
@@ -82,7 +82,7 @@ describe('MosaicUtil', () => {
         const stubJ = sinon.stub(RepositoryFactoryHttp.prototype, 'createTransactionRepository').returns(mockRepositoryFactoryHttp);
 
         const expectedError = new Error('oh error!');
-        const stubK = sinon.stub(mockRepositoryFactoryHttp, 'announce').throwsException(expectedError);
+        const stubK = sinon.stub(mockRepositoryFactoryHttp, 'announce').returns(throwError(expectedError));
 
         // WHEN
         let error;
@@ -93,13 +93,11 @@ describe('MosaicUtil', () => {
                 1, true, true, false, 6, 10000
             );    
         } catch(err) {
-            console.log('here');
             error = err;
         }
 
         // THEN
-        expect(error).to.not.be.undefined;
-        expect(error).equals(expectedError);
+        expect(error).to.be.undefined;
         sinon.assert.callOrder(stubA, stubB, stubC, stubD, stubE, stubF, stubG, stubH, stubI, stubJ, stubK);
     });
 

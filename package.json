@@ -63,7 +63,7 @@
     "exclude": [
       "**/*.d.ts",
       "lib/*",
-      "./*",
+      "test.js",
       "coverage/*",
       "test/*"
     ],
