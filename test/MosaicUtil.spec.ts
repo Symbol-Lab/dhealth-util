@@ -81,20 +81,26 @@ describe('MosaicUtil', () => {
         const mockRepositoryFactoryHttp = mock(TransactionHttp);
         const stubJ = sinon.stub(RepositoryFactoryHttp.prototype, 'createTransactionRepository').returns(mockRepositoryFactoryHttp);
 
-        const error = new Error('oh error!');
-        const stubK = sinon.stub(mockRepositoryFactoryHttp, 'announce').returns(throwError(error));
+        const expectedError = new Error('oh error!');
+        const stubK = sinon.stub(mockRepositoryFactoryHttp, 'announce').throwsException(expectedError);
 
         // WHEN
-        await MosaicUtil.createMosaic(
-            TestConstants.networkType,
-            TestConstants.accountPriKey,
-            1, true, true, false, 6, 10000
-        ).catch(err => {
-            // THEN
-            expect(err).equals(error);
-            sinon.assert.callOrder(stubA, stubB, stubC, stubD, stubE, stubF, stubG, stubH, stubI, stubJ, stubK);
-        })
+        let error;
+        try {
+            await MosaicUtil.createMosaic(
+                TestConstants.networkType,
+                TestConstants.accountPriKey,
+                1, true, true, false, 6, 10000
+            );    
+        } catch(err) {
+            console.log('here');
+            error = err;
+        }
 
+        // THEN
+        expect(error).to.not.be.undefined;
+        expect(error).equals(expectedError);
+        sinon.assert.callOrder(stubA, stubB, stubC, stubD, stubE, stubF, stubG, stubH, stubI, stubJ, stubK);
     });
 
     it('get mosaic info', async () => {
@@ -133,18 +139,21 @@ describe('MosaicUtil', () => {
         );
         const mockMosaicHttp = mock(MosaicHttp);
         const stubB = sinon.stub(RepositoryFactoryHttp.prototype, 'createMosaicRepository').returns(mockMosaicHttp);
-        const error = new Error('oh no!');
-        const stubC = sinon.stub(mockMosaicHttp, 'getMosaic').returns(throwError(error));
+        const expectedError = new Error('oh no!');
+        const stubC = sinon.stub(mockMosaicHttp, 'getMosaic').returns(throwError(expectedError));
 
         // WHEN
-        const result = await MosaicUtil.getMosaicInfo(TestConstants.networkType, TestConstants.mosaicIdHex)
-        .catch(err => {
+        let result, error;
+        try {
+            result = await MosaicUtil.getMosaicInfo(TestConstants.networkType, TestConstants.mosaicIdHex);
+        } catch(err) {
+            error = err;
+        }
 
-            // THEN
-            expect(err).equals(error);
-            sinon.assert.callOrder(stubA, stubB, stubC);
-        });
+        // THEN
         expect(result).to.be.undefined;
+        expect(error).equals(expectedError);
+        sinon.assert.callOrder(stubA, stubB, stubC);
     });
 
     it('get mosaic Id from namespace', async () => {
@@ -183,7 +192,6 @@ describe('MosaicUtil', () => {
         );
         const mockNamespaceHttp = mock(NamespaceHttp);
         const stubB = sinon.stub(RepositoryFactoryHttp.prototype, 'createNamespaceRepository').returns(mockNamespaceHttp);
-        const mockMosaicId = mock(MosaicId);
         const stubC = sinon.stub(mockNamespaceHttp, 'getLinkedMosaicId').returns(EMPTY);
 
         // WHEN
