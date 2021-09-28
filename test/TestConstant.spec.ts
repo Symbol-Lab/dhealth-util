@@ -1,4 +1,6 @@
-import { NetworkType, UInt64 } from "../src";
+import { Account, Address, Deadline, Mosaic, NamespaceId, NetworkType, PlainMessage, SignedTransaction, TransactionAnnounceResponse, TransferTransaction, UInt64 } from "../src";
+import { mock } from 'ts-mockito';
+import { NetworkConfigurationDefaults } from "../src/NetworkConfig";
 
 export class TestConstants {
     static mnemonicStr = 'other price cactus leave limit human earth achieve secret cry mad cliff';
@@ -20,5 +22,28 @@ export class TestConstants {
     static mosaicIdHex = '5A4935C1D66E6AC4';
     static mosaicNamespace = 'dhealth.dhp';
 
+    static mockString: string = mock('string');
+    static mockNumber: number = mock(1);
+
     static blockHeigh = new UInt64([1, 2]);
+    static mockTransferTx = mock(TransferTransaction);
+    static mockMosaic = mock(Mosaic);
+    static mockNamespaceId = mock(NamespaceId);
+    static mockUInt64 = mock(UInt64)
+    static mockAcc = mock(Account);
+    static mockSignedTx = mock(SignedTransaction);
+    static mockTxAnnouceRes = mock(TransactionAnnounceResponse);
+
+    static mockNetworkType: NetworkType = mock(NetworkType);
+    static mockPrivateKey: string = mock('abc');
+    static mockRecipientAddr: string = mock('test_addr');
+    static mockMosaicDetail: any = mock();
+    static mockMosaicDetails = [TestConstants.mockMosaicDetail];
+    static mockPlainMsg: string = mock('test_msg');
+    static mockFee:number = mock(100000);
+    static mockDeadline: Deadline = mock(Deadline);
+    static mockAddr: Address = mock(Address);
+    static mockPlainMessage: PlainMessage = mock(PlainMessage);
+    static networkDefaults: NetworkConfigurationDefaults = mock();
+
 }
