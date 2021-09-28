@@ -49,7 +49,7 @@ describe('NetworkUtil', () => {
 
         // THEN
         expect(result).to.be.undefined;
-        expect(error.message).equals(expectedError.message);
+        expect((error as Error).message).equals(expectedError.message);
         sinon.assert.calledOnce(stubA);
     });
 
