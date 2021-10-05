@@ -1,6 +1,6 @@
-import { Account, Address, Deadline, Mosaic, NamespaceId, NetworkType, PlainMessage, SignedTransaction, TransactionAnnounceResponse, TransferTransaction, UInt64 } from "../src";
+import { Account, Address, BlockHttp, Deadline, Mosaic, MosaicInfo, NamespaceId, NetworkType, NormalBlockInfo, Page, PlainMessage, RepositoryFactoryHttp, SignedTransaction, Transaction, TransactionAnnounceResponse, TransactionGroup, TransactionHttp, TransactionInfo, TransactionSearchCriteria, TransferTransaction, UInt64 } from "../src";
 import { mock } from 'ts-mockito';
-import { NetworkConfigurationDefaults } from "../src/NetworkConfig";
+import { NetworkConfigurationDefaults, NodeConfig } from "../src/NetworkConfig";
 
 export class TestConstants {
     static mnemonicStr = 'other price cactus leave limit human earth achieve secret cry mad cliff';
@@ -24,6 +24,8 @@ export class TestConstants {
 
     static mockString: string = mock('string');
     static mockNumber: number = mock(1);
+    static mockTransactionGroup: TransactionGroup = mock(TransactionGroup);
+    static mockTransactionInfo: TransactionInfo = mock(TransactionInfo);
 
     static blockHeigh = new UInt64([1, 2]);
     static mockTransferTx = mock(TransferTransaction);
@@ -33,17 +35,23 @@ export class TestConstants {
     static mockAcc = mock(Account);
     static mockSignedTx = mock(SignedTransaction);
     static mockTxAnnouceRes = mock(TransactionAnnounceResponse);
+    static mockBlockInfo = mock(NormalBlockInfo);
 
     static mockNetworkType: NetworkType = mock(NetworkType);
     static mockPrivateKey: string = mock('abc');
     static mockRecipientAddr: string = mock('test_addr');
     static mockMosaicDetail: any = mock();
     static mockMosaicDetails = [TestConstants.mockMosaicDetail];
+    static mockMosaicInfo = mock(MosaicInfo);
     static mockPlainMsg: string = mock('test_msg');
     static mockFee:number = mock(100000);
     static mockDeadline: Deadline = mock(Deadline);
     static mockAddr: Address = mock(Address);
     static mockPlainMessage: PlainMessage = mock(PlainMessage);
     static networkDefaults: NetworkConfigurationDefaults = mock();
-
+    static mockNode: NodeConfig = { friendlyName: 'test-node', roles: 2, url: 'https://api-01.dhealth.dev:3001' };
+    static mockTransactionRepository = mock(TransactionHttp);
+    static mockBlockRepository = mock(BlockHttp);
+    static mockPageTx:Page<Transaction> = mock(Page);
+    static mockSearchCriteria = mock<TransactionSearchCriteria>();
 }
