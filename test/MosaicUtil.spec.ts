@@ -125,7 +125,7 @@ describe('MosaicUtil', () => {
         sinon.assert.callOrder(stubA, stubB, stubC);
     });
 
-    it('get mosaic info expect error', async () => {
+    it('get mosaic info expects error given non-API node connection', async () => {
         // GIVEN
         const mockNode: NodeConfig = {
             roles: 1,
