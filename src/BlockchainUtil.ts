@@ -1,4 +1,4 @@
-import { BlockInfo, NetworkType, RepositoryFactoryHttp, UInt64 } from 'symbol-sdk';
+import { BlockInfo, NetworkType, RepositoryFactoryHttp, UInt64 } from '@dhealth/sdk';
 import { NetworkUtil } from './NetworkUtil';
 
 export class BlockchainUtil {

@@ -2,7 +2,17 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 import { of } from 'rxjs';
 import {TestConstants} from './TestConstant.spec';
-import { AccountHttp, AccountInfo, AccountType, AccountUtil, Address, NetworkConfig, NetworkType, NetworkUtil, RepositoryFactoryHttp, SupplementalPublicKeys, UInt64 } from '../src';
+import {
+    AccountHttp,
+    AccountInfo,
+    AccountType,
+    Address,
+    NetworkType,
+    RepositoryFactoryHttp,
+    SupplementalPublicKeys,
+    UInt64
+} from '@dhealth/sdk'
+import { AccountUtil, NetworkConfig, NetworkUtil } from '../src';
 
 describe('AccountUtil', () => {
 

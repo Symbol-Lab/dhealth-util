@@ -2,7 +2,24 @@ import * as sinon from 'sinon';
 import { expect } from 'chai';
 import  { mock } from 'ts-mockito';
 import { EMPTY, of, throwError } from 'rxjs';
-import { Account, AggregateTransaction, MosaicDefinitionTransaction, MosaicFlags, MosaicHttp, MosaicId, MosaicInfo, MosaicNonce, MosaicRepository, MosaicSupplyChangeTransaction, MosaicUtil, NamespaceHttp, NetworkUtil, RepositoryFactoryHttp, SignedTransaction, TransactionAnnounceResponse, TransactionHttp, UInt64 } from '../src';
+import {
+    Account,
+    AggregateTransaction,
+    MosaicDefinitionTransaction,
+    MosaicFlags,
+    MosaicHttp,
+    MosaicId,
+    MosaicInfo,
+    MosaicNonce,
+    MosaicSupplyChangeTransaction,
+    NamespaceHttp,
+    RepositoryFactoryHttp,
+    SignedTransaction,
+    TransactionAnnounceResponse,
+    TransactionHttp,
+    UInt64
+} from '@dhealth/sdk';
+import { MosaicUtil, NetworkUtil } from '../src';
 import { TestConstants } from './TestConstant.spec';
 import { NodeConfig } from '../src/NetworkConfig';
 

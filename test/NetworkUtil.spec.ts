@@ -2,7 +2,8 @@ import * as sinon from 'sinon';
 import { expect } from 'chai';
 import { mock } from 'ts-mockito'
 import { NetworkConfigurationDefaults, NodeConfig } from '../src/NetworkConfig';
-import { NetworkConfig, NetworkUtil, NetworkType, UInt64 } from '../src';
+import { NetworkType, UInt64 } from '@dhealth/sdk';
+import { NetworkConfig, NetworkUtil } from '../src';
 import { TestConstants } from './TestConstant.spec';
 const axios = require('axios');
 

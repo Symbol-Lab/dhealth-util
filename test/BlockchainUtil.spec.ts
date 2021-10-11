@@ -2,7 +2,16 @@ import { expect } from 'chai';
 import * as sinon from 'sinon';
 import  { mock } from 'ts-mockito';
 import { of } from 'rxjs';
-import { BlockchainUtil, BlockHttp, BlockInfo, ChainHttp, ChainInfo, NetworkUtil, NormalBlockInfo, RepositoryFactoryHttp, UInt64 } from "../src";
+import { BlockchainUtil, NetworkUtil } from "../src";
+import {
+    BlockHttp,
+    BlockInfo,
+    ChainHttp,
+    ChainInfo,
+    NormalBlockInfo,
+    RepositoryFactoryHttp,
+    UInt64
+} from '@dhealth/sdk';
 import { TestConstants } from './TestConstant.spec';
 import { NodeConfig } from '../src/NetworkConfig';
 

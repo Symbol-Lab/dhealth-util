@@ -1,16 +1,11 @@
 import {
     Account,
-    AccountUtil,
     Address,
-    BlockchainUtil,
     Deadline,
     Mosaic,
     MosaicId,
-    MosaicUtil,
     NamespaceId,
-    NetworkConfig,
     NetworkType,
-    NetworkUtil,
     PlainMessage,
     RepositoryFactoryHttp,
     SignedTransaction,
@@ -21,7 +16,16 @@ import {
     TransactionType,
     TransferTransaction,
     UInt64
-} from ".";
+} from '@dhealth/sdk';
+
+import {
+    AccountUtil,
+    BlockchainUtil,
+    MosaicUtil,
+    NetworkConfig,
+    NetworkUtil
+} from './'
+
 import { map, mergeMap, filter, toArray } from 'rxjs/operators';
 
 export class TransactionUtil {

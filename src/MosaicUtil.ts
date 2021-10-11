@@ -10,12 +10,15 @@ import {
   MosaicSupplyChangeAction,
   MosaicSupplyChangeTransaction,
   NamespaceId,
-  NetworkConfig,
   NetworkType,
-  NetworkUtil,
   RepositoryFactoryHttp,
   UInt64
-} from "./";
+} from '@dhealth/sdk';
+
+import {
+  NetworkConfig,
+  NetworkUtil
+} from './';
 
 export class MosaicUtil {
 

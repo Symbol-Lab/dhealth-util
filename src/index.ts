@@ -22,5 +22,3 @@ export {
   Network,
   Wallet
 }
-
-export * from 'symbol-sdk';

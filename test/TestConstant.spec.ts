@@ -1,4 +1,25 @@
-import { Account, Address, BlockHttp, Deadline, Mosaic, MosaicInfo, NamespaceId, NetworkType, NormalBlockInfo, Page, PlainMessage, RepositoryFactoryHttp, SignedTransaction, Transaction, TransactionAnnounceResponse, TransactionGroup, TransactionHttp, TransactionInfo, TransactionSearchCriteria, TransferTransaction, UInt64 } from "../src";
+import {
+    Account,
+    Address,
+    BlockHttp,
+    Deadline,
+    Mosaic,
+    MosaicInfo,
+    NamespaceId,
+    NetworkType,
+    NormalBlockInfo,
+    Page,
+    PlainMessage,
+    SignedTransaction,
+    Transaction,
+    TransactionAnnounceResponse,
+    TransactionGroup,
+    TransactionHttp,
+    TransactionInfo,
+    TransactionSearchCriteria,
+    TransferTransaction,
+    UInt64
+} from '@dhealth/sdk';
 import { mock } from 'ts-mockito';
 import { NetworkConfigurationDefaults, NodeConfig } from "../src/NetworkConfig";
 

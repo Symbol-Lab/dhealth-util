@@ -1,4 +1,5 @@
-import { NetworkType, NetworkConfig, UInt64 } from '.';
+import { NetworkType, UInt64 } from '@dhealth/sdk';
+import { NetworkConfig } from './';
 const axios = require('axios');
 
 export class NetworkUtil {

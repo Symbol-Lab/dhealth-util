@@ -1,13 +1,21 @@
 import * as sinon from 'sinon';
 import { expect } from 'chai';
 import {
-    Account, AccountUtil, Address, Deadline, Mosaic, MosaicId, MosaicUtil, NetworkConfig, NetworkType, NetworkUtil, PlainMessage,
+    Account,
+    Address,
+    Deadline,
+    Mosaic,
+    MosaicId,
+    NetworkType,
+    PlainMessage,
     RepositoryFactoryHttp,
     TransactionInfo,
-    TransactionUtil, TransferTransaction, UInt64
-} from '../src';
+    TransferTransaction,
+    UInt64
+} from '@dhealth/sdk';
+import { AccountUtil, MosaicUtil, NetworkConfig, NetworkUtil, TransactionUtil } from '../src';
 import { TestConstants } from './TestConstant.spec';
-import { Observable, of, throwError } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 describe('TransactionUtil', () => {
     before(() => {
