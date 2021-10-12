@@ -9,6 +9,7 @@ import * as NetworkConfig from './NetworkConfig'
 // symbol-hd-wallet
 import { Network, Wallet } from 'symbol-hd-wallets';
 
+export * from './infrastructure';
 export {
   // This library
   AccountUtil,

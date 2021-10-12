@@ -21,6 +21,7 @@ import {
     UInt64
 } from '@dhealth/sdk';
 import { mock } from 'ts-mockito';
+import { TransferTransactionStrategy } from '../src';
 import { NetworkConfigurationDefaults, NodeConfig } from "../src/NetworkConfig";
 
 export class TestConstants {
@@ -75,4 +76,6 @@ export class TestConstants {
     static mockBlockRepository = mock(BlockHttp);
     static mockPageTx:Page<Transaction> = mock(Page);
     static mockSearchCriteria = mock<TransactionSearchCriteria>();
+
+    static mockTransferTransactionStrategy = mock(TransferTransactionStrategy);
 }
