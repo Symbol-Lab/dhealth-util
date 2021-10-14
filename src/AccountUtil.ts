@@ -1,4 +1,4 @@
-import { Account, Address, NetworkType, RepositoryFactoryHttp } from 'symbol-sdk';
+import { Account, Address, NetworkType, RepositoryFactoryHttp } from '@dhealth/sdk';
 import { ExtendedKey, MnemonicPassPhrase, Network, Wallet } from 'symbol-hd-wallets';
 import { NetworkUtil } from './'
 

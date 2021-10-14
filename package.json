@@ -1,6 +1,6 @@
 {
   "name": "dhealth-utils",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Utility library for dHealth",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -8,7 +8,7 @@
     "lib/"
   ],
   "scripts": {
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' nyc mocha -r ts-node/register 'test/**/*.ts'",
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' nyc mocha -r ts-node/register 'test/**/*.ts' && nyc report --reporter=text-lcov | coveralls",
     "build": "tsc -p tsconfig.json && tsc -p tsconfig-cjs.json",
     "prepublish": "npm run build"
   },
@@ -38,18 +38,22 @@
     "@types/chai": "^4.2.22",
     "@types/mocha": "^9.0.0",
     "@types/node": "^14.14.37",
+    "@types/sinon": "^10.0.3",
     "bip32": "^1.0.4",
     "chai": "^4.3.4",
+    "coveralls": "^3.1.1",
     "mocha": "^9.1.1",
     "nyc": "^15.1.0",
+    "sinon": "^11.1.2",
+    "ts-mockito": "^2.6.1",
     "ts-node": "^10.2.1",
     "typescript": "^4.2.4"
   },
   "dependencies": {
+    "@dhealth/sdk": "^1.0.3-alpha-202110081200",
     "axios": "^0.21.1",
     "rxjs": "^6.6.7",
-    "symbol-hd-wallets": "^0.14.1",
-    "symbol-sdk": "^1.0.0"
+    "symbol-hd-wallets": "^0.14.1"
   },
   "nyc": {
     "extension": [
@@ -59,13 +63,13 @@
     "exclude": [
       "**/*.d.ts",
       "lib/*",
-      "./*",
+      "test.js",
       "coverage/*",
       "test/*"
     ],
     "reporter": [
       "text"
     ],
-    "all": true  
+    "all": true
   }
 }

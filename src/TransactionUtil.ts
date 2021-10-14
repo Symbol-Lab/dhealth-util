@@ -1,16 +1,11 @@
 import {
     Account,
-    AccountUtil,
     Address,
-    BlockchainUtil,
     Deadline,
     Mosaic,
     MosaicId,
-    MosaicUtil,
     NamespaceId,
-    NetworkConfig,
     NetworkType,
-    NetworkUtil,
     PlainMessage,
     RepositoryFactoryHttp,
     SignedTransaction,
@@ -21,29 +16,32 @@ import {
     TransactionType,
     TransferTransaction,
     UInt64
-} from ".";
-import { map, mergeMap, filter, toArray } from 'rxjs/operators';
+} from '@dhealth/sdk';
 
+import {
+    AccountUtil,
+    BlockchainUtil,
+    MosaicUtil,
+    NetworkConfig,
+    NetworkUtil
+} from './'
+
+import { map, mergeMap, filter, toArray } from 'rxjs/operators';
+import { TransactionCreationParams, TransactionStrategies } from './infrastructure';
 export class TransactionUtil {
-    public static async sendTransferTransaction(
-        networkType: NetworkType,
-        privateKey: string,
-        recipientAddress: string, 
-        mosaicDetails: Array<{namespaceId: string, amount: number}>,
-        plainMessage: string, 
-        maxFee: number
+
+    public static async createAndAnnounceTransaction
+    (
+        Clazz: any,
+        transactionCreationParams: TransactionCreationParams,
+        privateKey: string
     ) {
-        let aliasedMosaics = [];
-        for (const mosaicDetail of mosaicDetails) {
-            const aliasedMosaic = this.getMosaicFromNamespace(mosaicDetail.namespaceId, mosaicDetail.amount);
-            aliasedMosaics.push(aliasedMosaic);
-        }
-        const transferTransaction = await this.createTransferTransaction(networkType, recipientAddress, aliasedMosaics, plainMessage, maxFee);
-        const account = Account.createFromPrivateKey(privateKey, networkType);
-        const signedTransaction = await this.signTransaction(account, transferTransaction);
+        const txStrategy = TransactionStrategies.getStrategy(Clazz.name);
+        const transaction = txStrategy.create(transactionCreationParams);
+        const account = Account.createFromPrivateKey(privateKey, transactionCreationParams.networkType);
+        const signedTransaction = await this.signTransaction(account, transaction);
         console.log('Payload:', signedTransaction.payload);
         console.log('Transaction Hash:', signedTransaction.hash);
-
         const response = (await this.announceTransaction(signedTransaction));
         return response;
     }

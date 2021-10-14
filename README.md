@@ -27,18 +27,19 @@
 
 <p align="center">
   <a href="https://github.com/dHealth-Symbol-Lab/dhealth-utils">
-    <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/dHealth-Symbol-Lab/dhealth-utils?color=bright%20green&label=Github&logo=github">
+    <img alt="GitHub package.json version" src="https://img.shields.io/github/package-json/v/dHealth-Symbol-Lab/dhealth-utils?label=Github&logo=github&color=success">
   </a>&nbsp;
   <a href="https://www.npmjs.com/package/dhealth-utils">
-    <img alt="npm" src="https://img.shields.io/npm/v/dhealth-utils?color=bright%20green&label=NPM%20Package&logo=npm">
+    <img alt="npm" src="https://img.shields.io/npm/v/dhealth-utils?label=NPM%20Package&logo=npm&color=success">
   </a>&nbsp;
   <a href="https://circleci.com/gh/dHealth-Symbol-Lab/dhealth-utils/tree/main">
-    <!-- <img src="https://circleci.com/gh/dHealth-Symbol-Lab/dhealth-utils/tree/main.svg?style=shield"> -->
-    <img alt="CircleCI" src="https://img.shields.io/circleci/build/github/dHealth-Symbol-Lab/dhealth-utils/main?color=brightgreen&logo=circleci">
-  </a>
-  <br>
+    <img alt="CircleCI" src="https://img.shields.io/circleci/build/github/dHealth-Symbol-Lab/dhealth-utils/main?logo=circleci&logoColor=success">
+  </a><br>
+  <a href='https://coveralls.io/github/dHealth-Symbol-Lab/dhealth-utils'>
+    <img alt="Coveralls" src="https://img.shields.io/coveralls/github/dHealth-Symbol-Lab/dhealth-utils?logo=coveralls">
+  </a>&nbsp;
   <a href="https://t.me/dHealthCommunity">
-    <img src="https://img.shields.io/badge/Telegram-dHealthCommunity-informational?style=flat&logo=telegram" />&nbsp;
+    <img src="https://img.shields.io/badge/Telegram-dHealthCommunity-informational?style=flat&logo=telegram" />
   </a>
   <br>
 </p>
@@ -569,47 +570,45 @@ const timestamp = await dhealth_utils.TransactionUtil.getTimestampFromTransactio
 </details>
 
 <details>
-<summary>Send a transfer transaction</summary>
+<summary>Create and announce a transfer transaction</summary>
 
 #### Typescript
 ```ts
-const networkType = NetworkType.TEST_NET;
 const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
-const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
-const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}];
-const plainMessage = `test create transfer tx - ${new Date().getTime()}`;
-const maxFee = 100000; // 0.1 dhp - 1 million basic units equal 1 dhp
+const transactionCreationParams = {
+  networkType: NetworkType.TEST_NET,
+  maxFee: 100000, // 0.1 dhp - 1 million basic units equal 1 dhp
+  recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  mosaicDetails: [{namespaceId: 'dhealth.dhp', amount: 100000}],
+  plainMessage: `test create transfer tx - ${new Date().getTime()}`
+}
 
-const result = await TransactionUtil.sendTransferTransaction(
-    networkType,
-    privateKey,
-    recipientAddress,
-    mosaicDetails,
-    plainMessage,
-    maxFee
+const result = await TransactionUtil.createAndAnnounceTransaction(
+  TransferTransaction,
+  transactionCreationParams,
+  privateKey
 ).catch(err => {
-    console.log(err);
+  console.log(err);
 });
 ```
 
 #### Javascript
 ```js
-const networkType = dhealth_utils.NetworkType.TEST_NET;
 const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
-const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
-const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}];
-const plainMessage = `test create transfer tx - ${new Date().getTime()}`;
-const maxFee = 100000; // 0.1 dhp - 1 million basic units equal 1 dhp
+const transactionCreationParams = {
+  networkType: NetworkType.TEST_NET,
+  maxFee: 100000, // 0.1 dhp - 1 million basic units equal 1 dhp
+  recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  mosaicDetails: [{namespaceId: 'dhealth.dhp', amount: 100000}],
+  plainMessage: `test create transfer tx - ${new Date().getTime()}`
+}
 
-const result = await dhealth_utils.TransactionUtil.sendTransferTransaction(
-    networkType,
-    privateKey,
-    recipientAddress,
-    mosaicDetails,
-    plainMessage,
-    maxFee
+const result = await dhealth_utils.TransactionUtil.createAndAnnounceTransaction(
+  TransferTransaction,
+  transactionCreationParams,
+  privateKey
 ).catch(err => {
-    console.log(err);
+  console.log(err);
 });
 ```
 </details>

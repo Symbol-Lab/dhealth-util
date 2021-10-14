@@ -1,20 +1,24 @@
 import { expect } from 'chai';
-import { AccountUtil, NetworkType } from '../src';
+import * as sinon from 'sinon';
+import { of } from 'rxjs';
+import {TestConstants} from './TestConstant.spec';
+import {
+    AccountHttp,
+    AccountInfo,
+    AccountType,
+    Address,
+    NetworkType,
+    RepositoryFactoryHttp,
+    SupplementalPublicKeys,
+    UInt64
+} from '@dhealth/sdk'
+import { AccountUtil, NetworkConfig, NetworkUtil } from '../src';
 
 describe('AccountUtil', () => {
 
-    const mnemonicStr = 'other price cactus leave limit human earth achieve secret cry mad cliff';
-    const passwordStr = 'password';
-    const protectedSeed = '04f15a6cc86a6677805eafcf89a8b90492edd3af561b6413fa4889206866b4d8a9b580da439277374044908f33b3f63530f207d2ebd590b7dcbf627994564eeb';
-    const extendedKeyBase58 = 'xprv9s21ZrQH143K2YWV24F9ZwQBWvHbgiYsdHxUgoQQURRM9TTvaFZYpy8aK1kXhMb6SVmbzsa4jtpVtvA8hzP8scQG66KiUGqdTMG4CnyXZ7z';
-    const accountPriKey = '827bff83d9ad6f569b353e4fe26539fe3de4a3878bc883607d095be7f15a1fb5';
-    const accountPubKey = '84aa0dd4b2b14175faa5f0465af821017c24c675260fb84f4c672a1dd42432bb';
-    const childAccPriKey = '22c2885e0c7d6753180e0d1b75722b356061f87eebaadb073d06f05a4c3684c5';
-    const childAccPubKey = 'e80d0bb6a847a6eba908a8a33e65926058aec3e084a2ad9ba9c671abc3803a2c';
-    const accIndex0Address = 'NAFO3LOLJZP5HQYQTCAMN5ASUIJ23CTH34BPZJA';
-    const accIndex0NetWorkType = NetworkType.MAIN_NET;
-    const accIndex0PrivKey = '22C2885E0C7D6753180E0D1B75722B356061F87EEBAADB073D06F05A4C3684C5';
-    const accIndex0PubKey = 'E80D0BB6A847A6EBA908A8A33E65926058AEC3E084A2AD9BA9C671ABC3803A2C';
+    after(() => {
+        sinon.restore();
+    });
 
     it('generate HD wallet mnemonic', async () => {
         const result = AccountUtil.generateHDWalletMnemonic();
@@ -22,13 +26,17 @@ describe('AccountUtil', () => {
     });
 
     it('generate protected seed from mnemonic', async () => {
-        const result = AccountUtil.generateProtectedSeedFromMnemonic(mnemonicStr, passwordStr);
+        const result = AccountUtil.generateProtectedSeedFromMnemonic(
+            TestConstants.mnemonicStr, TestConstants.passwordStr
+        );
         expect(result).to.not.be.undefined;
-        expect(result).equals(protectedSeed);
+        expect(result).equals(TestConstants.protectedSeed);
     });
 
     it('get HD wallet from protected seed', async () => {
-        const result = AccountUtil.getHDWalletFromProtectedSeed(protectedSeed, passwordStr);
+        const result = AccountUtil.getHDWalletFromProtectedSeed(
+            TestConstants.protectedSeed, TestConstants.passwordStr
+        );
         //TODO: to add checks
         expect(result).to.not.be.undefined;
         // expect(result.extendedKey.toBase58()).equals(extendedKeyBase58);
@@ -39,22 +47,116 @@ describe('AccountUtil', () => {
     });
 
     it('get HD wallet from mnemonic', async () => {
-        const result = AccountUtil.getHDWalletFromMnemonic(mnemonicStr);
+        const result = AccountUtil.getHDWalletFromMnemonic(TestConstants.mnemonicStr);
         expect(result).to.not.be.undefined;
-        expect(result.extendedKey.toBase58()).equals(extendedKeyBase58);
-        expect(result.getAccountPrivateKey()).equals(accountPriKey);
-        expect(result.getAccountPublicKey()).equals(accountPubKey);
-        expect(result.getChildAccountPrivateKey()).equals(childAccPriKey);
-        expect(result.getChildAccountPublicKey()).equals(childAccPubKey);
+        expect(result.extendedKey.toBase58()).equals(TestConstants.extendedKeyBase58);
+        expect(result.getAccountPrivateKey()).equals(TestConstants.accountPriKey);
+        expect(result.getAccountPublicKey()).equals(TestConstants.accountPubKey);
+        expect(result.getChildAccountPrivateKey()).equals(TestConstants.childAccPriKey);
+        expect(result.getChildAccountPublicKey()).equals(TestConstants.childAccPubKey);
     });
 
     it('get account at index', async () => {
-        const wallet = AccountUtil.getHDWalletFromMnemonic(mnemonicStr);
-        const result = AccountUtil.getAccountAtIndex(wallet, 0, NetworkType.MAIN_NET);
+        const wallet = AccountUtil.getHDWalletFromMnemonic(TestConstants.mnemonicStr);
+        const result = AccountUtil.getAccountAtIndex(wallet, 0, TestConstants.networkType);
         expect(result).to.not.be.undefined;
-        expect(result.address.plain()).equals(accIndex0Address);
-        expect(result.address.networkType).equals(accIndex0NetWorkType);
-        expect(result.privateKey).equals(accIndex0PrivKey);
-        expect(result.publicKey).equals(accIndex0PubKey);
+        expect(result.address.plain()).equals(TestConstants.accIndex0Address);
+        expect(result.address.networkType).equals(TestConstants.networkType);
+        expect(result.privateKey).equals(TestConstants.accIndex0PrivKey);
+        expect(result.publicKey).equals(TestConstants.accIndex0PubKey);
+    });
+
+    it('generate account', async () => {
+        const account = AccountUtil.generateAccount(TestConstants.networkType);
+        expect(account).to.not.be.undefined;
+        expect(account.networkType).equals(TestConstants.networkType);
+    });
+
+    it('generate account with private key', async () => {
+        const account = AccountUtil.generateNewAccountWithPrivateKey(
+            TestConstants.accountPriKey, TestConstants.networkType
+        );
+        expect(account).to.not.be.undefined;
+        expect(account.networkType).equals(TestConstants.networkType);
+        expect(account.privateKey.toLocaleLowerCase()).equals(TestConstants.accountPriKey);
+        expect(account.publicKey.toLowerCase()).equals(TestConstants.accountPubKey);
+        expect(account.address.plain()).equals(TestConstants.accountAddress);
+        expect(account.address.networkType).equals(TestConstants.networkType);
+    });
+
+    it('get account info', async () => {
+        const stub1 = sinon.stub(NetworkUtil, 'getNetworkTypeFromAddress').returns(
+            NetworkType.MAIN_NET
+        );
+        const stub2 = sinon.stub(NetworkUtil, 'getNodeFromNetwork').returns(
+            Promise.resolve(
+                NetworkConfig.defaultMainnetNetworkConfig.nodes[0]
+            )
+        );
+        const accountHttp = new AccountHttp('test');
+        const stub3 = sinon.stub(RepositoryFactoryHttp.prototype, 'createAccountRepository').returns(
+            accountHttp
+        )
+        const accountInfo = new AccountInfo(
+            1,
+            '1',
+            Address.createFromRawAddress(TestConstants.accountAddress),
+            new UInt64([1,2]),
+            TestConstants.accountPubKey,
+            new UInt64([1,2]),
+            AccountType.Main,
+            new SupplementalPublicKeys(),
+            [],
+            [],
+            new UInt64([1,2]),
+            new UInt64([1,2])
+        );
+        const stub5 = sinon.stub(AccountHttp.prototype, 'getAccountInfo').returns(
+            of(accountInfo)
+        );
+        const result = await AccountUtil.getAccountInfo(TestConstants.accountAddress);
+        expect(result).to.not.be.undefined;
+        expect(result.publicKey).equals(TestConstants.accountPubKey);
+        sinon.assert.callOrder(stub1, stub2, stub3, stub5);
+    });
+
+    it('get wallet address from public key', async () => {
+        const result = AccountUtil.getWalletAddressFromPublicKey(
+            TestConstants.accountPubKey, TestConstants.networkType
+        );
+        expect(result).to.not.be.undefined;
+        expect(result.networkType).equals(TestConstants.networkType);
+        expect(result.plain()).equals(TestConstants.accountAddress);
+    });
+
+    it('get publicKey from address', async () => {
+        sinon.stub(AccountUtil, 'getAccountInfo').callsFake((rawAddress: string) => {
+            return Promise.resolve(
+                new AccountInfo(
+                    1,
+                    '1',
+                    Address.createFromRawAddress(TestConstants.accountAddress),
+                    new UInt64([1,2]),
+                    TestConstants.accountPubKey,
+                    new UInt64([1,2]),
+                    AccountType.Main,
+                    new SupplementalPublicKeys(),
+                    [],
+                    [],
+                    new UInt64([1,2]),
+                    new UInt64([1,2])
+                )
+            )
+        });
+        const result = await AccountUtil.getPublicKeyFromAddress(TestConstants.accountAddress);
+        expect(result).to.not.be.undefined;
+        expect(result).equals(TestConstants.accountPubKey);
+    });
+
+    it('is address valid', async () => {
+        const result = AccountUtil.isAddressValid(TestConstants.validAddress);
+        const result2 = AccountUtil.isAddressValid(TestConstants.invalidAddress);
+        expect(result).to.be.true;
+        expect(result2).to.be.false;
     });
 });
