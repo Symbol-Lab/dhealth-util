@@ -98,7 +98,7 @@ describe('TransactionUtil', () => {
         }
         // WHEN
         const result = await TransactionUtil.createAndAnnounceTransaction(
-            TransferTransaction.name,
+            TransferTransaction,
             transactionCreationParams,
             privateKey
         )

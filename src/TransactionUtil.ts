@@ -30,12 +30,13 @@ import { map, mergeMap, filter, toArray } from 'rxjs/operators';
 import { TransactionCreationParams, TransactionStrategies } from './infrastructure';
 export class TransactionUtil {
 
-    public static async createAndAnnounceTransaction(
-        className: string,
+    public static async createAndAnnounceTransaction
+    (
+        Clazz: any,
         transactionCreationParams: TransactionCreationParams,
         privateKey: string
     ) {
-        const txStrategy = TransactionStrategies.getStrategy(className);
+        const txStrategy = TransactionStrategies.getStrategy(Clazz.name);
         const transaction = txStrategy.create(transactionCreationParams);
         const account = Account.createFromPrivateKey(privateKey, transactionCreationParams.networkType);
         const signedTransaction = await this.signTransaction(account, transaction);

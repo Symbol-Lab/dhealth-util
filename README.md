@@ -570,47 +570,45 @@ const timestamp = await dhealth_utils.TransactionUtil.getTimestampFromTransactio
 </details>
 
 <details>
-<summary>Send a transfer transaction</summary>
+<summary>Create and announce a transfer transaction</summary>
 
 #### Typescript
 ```ts
-const networkType = NetworkType.TEST_NET;
 const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
-const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
-const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}];
-const plainMessage = `test create transfer tx - ${new Date().getTime()}`;
-const maxFee = 100000; // 0.1 dhp - 1 million basic units equal 1 dhp
+const transactionCreationParams = {
+  networkType: NetworkType.TEST_NET,
+  maxFee: 100000, // 0.1 dhp - 1 million basic units equal 1 dhp
+  recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  mosaicDetails: [{namespaceId: 'dhealth.dhp', amount: 100000}],
+  plainMessage: `test create transfer tx - ${new Date().getTime()}`
+}
 
-const result = await TransactionUtil.sendTransferTransaction(
-    networkType,
-    privateKey,
-    recipientAddress,
-    mosaicDetails,
-    plainMessage,
-    maxFee
+const result = await TransactionUtil.createAndAnnounceTransaction(
+  TransferTransaction,
+  transactionCreationParams,
+  privateKey
 ).catch(err => {
-    console.log(err);
+  console.log(err);
 });
 ```
 
 #### Javascript
 ```js
-const networkType = dhealth_utils.NetworkType.TEST_NET;
 const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
-const recipientAddress = 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ';
-const mosaicDetails = [{namespaceId: 'dhealth.dhp', amount: 100000}];
-const plainMessage = `test create transfer tx - ${new Date().getTime()}`;
-const maxFee = 100000; // 0.1 dhp - 1 million basic units equal 1 dhp
+const transactionCreationParams = {
+  networkType: NetworkType.TEST_NET,
+  maxFee: 100000, // 0.1 dhp - 1 million basic units equal 1 dhp
+  recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  mosaicDetails: [{namespaceId: 'dhealth.dhp', amount: 100000}],
+  plainMessage: `test create transfer tx - ${new Date().getTime()}`
+}
 
-const result = await dhealth_utils.TransactionUtil.sendTransferTransaction(
-    networkType,
-    privateKey,
-    recipientAddress,
-    mosaicDetails,
-    plainMessage,
-    maxFee
+const result = await dhealth_utils.TransactionUtil.createAndAnnounceTransaction(
+  TransferTransaction,
+  transactionCreationParams,
+  privateKey
 ).catch(err => {
-    console.log(err);
+  console.log(err);
 });
 ```
 </details>

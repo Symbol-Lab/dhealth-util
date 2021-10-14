@@ -89,21 +89,22 @@ async function run() {
     /**
      * create tx
      */
-    const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
-    const transactionCreationParams = {
-        networkType: NetworkType.TEST_NET,
-        maxFee: 100000,
-        recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
-        mosaicDetails: [{namespaceId: 'dhealth.dhp', amount: 100000}],
-        plainMessage: 'test transaction'
-    }
-    await dhealth_utils.TransactionUtil.createAndAnnounceTransaction(
-        TransferTransaction.name,
-        transactionCreationParams,
-        privateKey
-    ).catch(err => {
-        console.log(err);
-    });
+     const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
+     const transactionCreationParams = {
+       networkType: NetworkType.TEST_NET,
+       maxFee: 100000, // 0.1 dhp - 1 million basic units equal 1 dhp
+       recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+       mosaicDetails: [{namespaceId: 'dhealth.dhp', amount: 100000}],
+       plainMessage: `test create transfer tx - ${new Date().getTime()}`
+     }
+
+     const result = await dhealth_utils.TransactionUtil.createAndAnnounceTransaction(
+       TransferTransaction,
+       transactionCreationParams,
+       privateKey
+     ).catch(err => {
+       console.log(err);
+     });
 
     /**
      * Create mosaic
