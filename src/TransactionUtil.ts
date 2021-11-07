@@ -46,6 +46,13 @@ export class TransactionUtil {
         return response;
     }
 
+    public static getMosaicFromId(mosaicId: string, amount: number) {
+        const aliasedMosaic = new Mosaic(
+            new MosaicId(mosaicId), UInt64.fromUint(amount)
+        );
+        return aliasedMosaic;
+    }
+
     public static getMosaicFromNamespace(namespaceId: string, amount: number) {
         const aliasedMosaic = new Mosaic(
             new NamespaceId(namespaceId),

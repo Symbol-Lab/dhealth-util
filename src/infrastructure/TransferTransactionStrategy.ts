@@ -6,8 +6,16 @@ export class TransferTransactionStrategy implements TransactionStrategy {
     create(transactionCreationParams: TransferTransactionCreationParams): Transaction {
         let aliasedMosaics = [];
         for (const mosaicDetail of transactionCreationParams.mosaicDetails) {
-            const aliasedMosaic = TransactionUtil.getMosaicFromNamespace(mosaicDetail.namespaceId, mosaicDetail.amount);
-            aliasedMosaics.push(aliasedMosaic);
+            let aliasedMosaic;
+            if (mosaicDetail.mosaicId) {
+                aliasedMosaic = TransactionUtil.getMosaicFromId(mosaicDetail.mosaicId, mosaicDetail.amount);
+            }
+            if (!aliasedMosaic && mosaicDetail.namespaceId) {
+                aliasedMosaic = TransactionUtil.getMosaicFromNamespace(mosaicDetail.namespaceId, mosaicDetail.amount);
+            }
+            if (aliasedMosaic) {
+                aliasedMosaics.push(aliasedMosaic);
+            }
         }
         const networkType = transactionCreationParams.networkType;
         return TransferTransaction.create(

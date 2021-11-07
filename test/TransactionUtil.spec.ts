@@ -13,10 +13,10 @@ import {
     TransferTransaction,
     UInt64
 } from '@dhealth/sdk';
-import { AccountUtil, MosaicUtil, NetworkConfig, NetworkUtil, TransactionUtil} from '../src';
+import { AccountUtil, MosaicUtil, NetworkConfig, NetworkUtil, TransactionUtil, TransferTransactionStrategy} from '../src';
 import { TestConstants } from './TestConstant.spec';
 import { of, throwError } from 'rxjs';
-import { TransactionStrategies } from '../lib/cjs';
+import { TransactionStrategies } from '../src';
 
 describe('TransactionUtil', () => {
     before(() => {
@@ -72,20 +72,13 @@ describe('TransactionUtil', () => {
 
     it('create and announce transaction - TransferTransaction', async () => {
         // GIVEN
-        const stubA = sinon.stub(TransactionUtil, 'getMosaicFromNamespace').returns(
-            TestConstants.mockMosaic
-        );
-        const stubB = sinon.stub(TransactionStrategies, 'getStrategy').returns(
-            TestConstants.mockTransferTransactionStrategy
-        );
-        const stubC = sinon.stub(TestConstants.mockTransferTransactionStrategy, 'create').returns(
-            TestConstants.mockTransferTx
-        );
-        const stubD = sinon.stub(Account, 'createFromPrivateKey').returns(TestConstants.mockAcc);
-        const stubE = sinon.stub(TransactionUtil, 'signTransaction').returns(
+        const stubA = sinon.stub(TransactionStrategies, 'getStrategy').returns(TestConstants.mockTransferTransactionStrategy);
+        const stubB = sinon.stub(TestConstants.mockTransferTransactionStrategy, 'create').returns(TestConstants.mockTransferTx);
+        const stubC = sinon.stub(Account, 'createFromPrivateKey').returns(TestConstants.mockAcc);
+        const stubD = sinon.stub(TransactionUtil, 'signTransaction').returns(
             Promise.resolve(TestConstants.mockSignedTx)
         );
-        const stubF = sinon.stub(TransactionUtil, 'announceTransaction').returns(
+        const stubE = sinon.stub(TransactionUtil, 'announceTransaction').returns(
             Promise.resolve(TestConstants.mockTxAnnouceRes)
         );
         const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
@@ -93,7 +86,7 @@ describe('TransactionUtil', () => {
             networkType: NetworkType.TEST_NET,
             maxFee: 100000,
             recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
-            mosaicDetails: [{namespaceId: 'dhealth.dhp', amount: 100000}],
+            mosaicDetails: [{mosaicId: '5A4935C1D66E6AC4', amount: 100000}],
             plainMessage: 'test transaction'
         }
         // WHEN
@@ -105,7 +98,17 @@ describe('TransactionUtil', () => {
         // THEN
         expect(result).to.not.be.undefined;
         expect(result).equals(TestConstants.mockTxAnnouceRes);
-        sinon.assert.callOrder(stubA, stubD, stubE, stubF);
+        sinon.assert.callOrder(stubA, stubB, stubC, stubD, stubE);
+    });
+
+    it('get mosaic from id', async() => {
+        // GIVEN
+        const stubA = sinon.stub(UInt64, 'fromUint').returns(TestConstants.mockUInt64);
+        // WHEN
+        const result = TransactionUtil.getMosaicFromId(TestConstants.mockString, TestConstants.mockNumber);
+        // GIVEN
+        expect(result).to.not.be.undefined;
+        sinon.assert.called(stubA);
     });
 
     it('get mosaic from namespace', async () => {
