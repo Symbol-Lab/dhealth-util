@@ -572,7 +572,26 @@ const timestamp = await dhealth_utils.TransactionUtil.getTimestampFromTransactio
 <details>
 <summary>Create and announce a transfer transaction</summary>
 
-#### Typescript
+#### Typescript - with mosaic ID
+```ts
+const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
+const transactionCreationParams = {
+  networkType: NetworkType.TEST_NET,
+  maxFee: 100000, // 0.1 dhp - 1 million basic units equal 1 dhp
+  recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  mosaicDetails: [{mosaicId: '5A4935C1D66E6AC4', amount: 100000}],
+  plainMessage: `test create transfer tx - ${new Date().getTime()}`
+}
+
+const result = await TransactionUtil.createAndAnnounceTransaction(
+  TransferTransaction,
+  transactionCreationParams,
+  privateKey
+).catch(err => {
+  console.log(err);
+});
+```
+#### Typescript - with namespace ID
 ```ts
 const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
 const transactionCreationParams = {
@@ -592,7 +611,27 @@ const result = await TransactionUtil.createAndAnnounceTransaction(
 });
 ```
 
-#### Javascript
+#### Javascript - with mosaic ID
+```js
+const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
+const transactionCreationParams = {
+  networkType: NetworkType.TEST_NET,
+  maxFee: 100000, // 0.1 dhp - 1 million basic units equal 1 dhp
+  recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  mosaicDetails: [{mosaicId: '5A4935C1D66E6AC4', amount: 100000}],
+  plainMessage: `test create transfer tx - ${new Date().getTime()}`
+}
+
+const result = await dhealth_utils.TransactionUtil.createAndAnnounceTransaction(
+  TransferTransaction,
+  transactionCreationParams,
+  privateKey
+).catch(err => {
+  console.log(err);
+});
+```
+
+#### Javascript - with namespace ID
 ```js
 const privateKey = '008D53A06B75DAB055034F436B85DFA77E027A8485B16C6604C35A1D2483254B';
 const transactionCreationParams = {
