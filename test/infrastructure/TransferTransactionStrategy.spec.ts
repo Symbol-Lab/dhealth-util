@@ -31,7 +31,7 @@ describe('TransactionUtil', () => {
         sinon.assert.callOrder(stubA, stubB);
     });
 
-    it('create transfer transaction with namespaceId - TransferTransaction', async () => {
+    it('create transfer transaction with namespaceName - TransferTransaction', async () => {
         // GIVEN
         const transferTransactionStrategy = new TransferTransactionStrategy();
         const stubA = sinon.stub(TransactionUtil, 'getMosaicFromNamespace').returns(TestConstants.mockMosaic);
@@ -40,7 +40,7 @@ describe('TransactionUtil', () => {
             networkType: NetworkType.TEST_NET,
             maxFee: 100000,
             recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
-            mosaicDetails: [{namespaceId: 'dhealth.dhp', amount: 100000}],
+            mosaicDetails: [{namespaceName: 'dhealth.dhp', amount: 100000}],
             plainMessage: 'test transaction'
         }
         // WHEN

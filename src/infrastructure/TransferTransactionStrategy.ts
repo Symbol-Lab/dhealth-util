@@ -10,8 +10,8 @@ export class TransferTransactionStrategy implements TransactionStrategy {
             if (mosaicDetail.mosaicId) {
                 aliasedMosaic = TransactionUtil.getMosaicFromId(mosaicDetail.mosaicId, mosaicDetail.amount);
             }
-            if (!aliasedMosaic && mosaicDetail.namespaceId) {
-                aliasedMosaic = TransactionUtil.getMosaicFromNamespace(mosaicDetail.namespaceId, mosaicDetail.amount);
+            if (!aliasedMosaic && mosaicDetail.namespaceName) {
+                aliasedMosaic = TransactionUtil.getMosaicFromNamespace(mosaicDetail.namespaceName, mosaicDetail.amount);
             }
             if (aliasedMosaic) {
                 aliasedMosaics.push(aliasedMosaic);
