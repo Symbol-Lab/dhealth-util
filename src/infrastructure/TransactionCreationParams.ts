@@ -7,7 +7,7 @@ interface TransactionCreationParams {
 
 interface TransferTransactionCreationParams extends TransactionCreationParams {
     recipientAddress: string;
-    mosaicDetails: Array<{namespaceId: string, amount: number}>;
+    mosaicDetails: Array<{mosaicId?:string, namespaceName?: string, amount: number}>;
     plainMessage: string;
 }
 
