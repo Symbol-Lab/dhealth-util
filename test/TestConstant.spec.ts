@@ -50,6 +50,7 @@ export class TestConstants {
     static mockTransactionInfo: TransactionInfo = mock(TransactionInfo);
 
     static blockHeigh = new UInt64([1, 2]);
+    static mockTx = mock(Transaction);
     static mockTransferTx = mock(TransferTransaction);
     static mockMosaic = mock(Mosaic);
     static mockNamespaceId = mock(NamespaceId);

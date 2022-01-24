@@ -12,11 +12,13 @@ import {
     Transaction,
     TransactionAnnounceResponse,
     TransactionGroup,
+    TransactionMapping,
     TransactionSearchCriteria,
     TransactionType,
     TransferTransaction,
     UInt64
 } from '@dhealth/sdk';
+import { TransactionURI } from 'symbol-uri-scheme';
 
 import {
     AccountUtil,
@@ -30,14 +32,18 @@ import { map, mergeMap, filter, toArray } from 'rxjs/operators';
 import { TransactionCreationParams, TransactionStrategies } from './infrastructure';
 export class TransactionUtil {
 
+    public static createTransaction(Clazz: any, transactionCreationParams: TransactionCreationParams) {
+        const txStrategy = TransactionStrategies.getStrategy(Clazz.name);
+        return txStrategy.create(transactionCreationParams);
+    }
+
     public static async createAndAnnounceTransaction
     (
         Clazz: any,
         transactionCreationParams: TransactionCreationParams,
         privateKey: string
     ) {
-        const txStrategy = TransactionStrategies.getStrategy(Clazz.name);
-        const transaction = txStrategy.create(transactionCreationParams);
+        const transaction = TransactionUtil.createTransaction(Clazz, transactionCreationParams);
         const account = Account.createFromPrivateKey(privateKey, transactionCreationParams.networkType);
         const signedTransaction = await this.signTransaction(account, transaction);
         console.log('Payload:', signedTransaction.payload);
@@ -227,5 +233,17 @@ export class TransactionUtil {
             }
         );
         return JSON.stringify(obj);
+    }
+
+    /**
+     * Serve transactions ready to be signed.
+     * Can be imported in desktop/mobile wallet.
+     * @param transaction
+     * @returns transaction uri
+     */
+    public static createTransactionURI(transaction: Transaction) {
+        const txURI = new TransactionURI(transaction.serialize(), TransactionMapping.createFromPayload).build();
+        const dHealthTxURI = txURI.replace('symbol', 'dhealth');
+        return dHealthTxURI;
     }
 }
