@@ -686,6 +686,40 @@ const result = await dhealth_utils.TransactionUtil.createAndAnnounceTransaction(
 ```
 </details>
 
+<details>
+<summary>Create a transfer URI (to be imported in wallet)</summary>
+
+#### Typescript
+```ts
+import { NetworkType, Mosaic, MosaicId, UInt64 } from '@dhealth/sdk';
+...
+const transaction = await TransactionUtil.createTransferTransaction(
+  NetworkType.TEST_NET,
+  'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  [new Mosaic(new MosaicId('5A4935C1D66E6AC4'), UInt64.fromUint(1000000))],
+  'test',
+  10000
+);
+const txURI = TransactionUtil.createTransactionURI(transaction);
+console.log('txURI: ', txURI);
+```
+
+#### Javascript
+```js
+const { NetworkType, Mosaic, MosaicId, UInt64 } = require('@dhealth/sdk');
+...
+const transaction = await dhealth_utils.TransactionUtil.createTransferTransaction(
+  NetworkType.TEST_NET,
+  'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  [new Mosaic(new MosaicId('5A4935C1D66E6AC4'), UInt64.fromUint(1000000))],
+  'test',
+  10000
+);
+const txURI = dhealth_utils.TransactionUtil.createTransactionURI(transaction);
+console.log('txURI: ', txURI);
+```
+</details>
+
 <!------------------------------------------>
 <!-- COLLAPSIBLE SECTIONS FOR USAGE ~ END -->
 <!------------------------------------------>
