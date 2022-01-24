@@ -1,6 +1,6 @@
 {
   "name": "dhealth-utils",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Utility library for dHealth",
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -53,7 +53,8 @@
     "@dhealth/sdk": "^1.0.3-alpha-202110081200",
     "axios": "^0.21.1",
     "rxjs": "^6.6.7",
-    "symbol-hd-wallets": "^0.14.1"
+    "symbol-hd-wallets": "^0.14.1",
+    "symbol-uri-scheme": "^0.6.1"
   },
   "nyc": {
     "extension": [
