@@ -76,8 +76,8 @@ export const defaultTestnetNetworkConfig: NetworkConfig = {
         generationHash: 'F1DE7701FF17DA20904565FA9753690A9990D3B00730A241FFFB7F60C2B5D638',
     },
     nodes: [
-        { friendlyName: 'testnet-node-centiva-1', roles: 2, url: 'https://api-01.dhealth.dev:3001' },
-        { friendlyName: 'testnet-node-centiva-2', roles: 2, url: 'https://api-02.dhealth.dev:3001' }
+        { friendlyName: 'dual-01-dhealth-testnet', roles: 2, url: 'https://dual-01.dhealth.dev:3001' },
+        { friendlyName: 'dual-02-dhealth-testnnet', roles: 2, url: 'https://dual-02.dhealth.dev:3001' }
     ],
 };
 
