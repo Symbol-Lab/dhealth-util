@@ -72,7 +72,7 @@ describe('NetworkUtil', () => {
         // THEN
         expect(result).to.not.be.undefined;
         expect(result).to.be.true;
-        sinon.assert.called(stubA);
+        sinon.assert.calledWith(stubA, 'test_url/node/health');
     });
 
     it('node is up expect result: false', async () => {
@@ -81,12 +81,12 @@ describe('NetworkUtil', () => {
         const stubA = sinon.stub(axios, 'get').returns(Promise.resolve(res));
 
         // WHEN
-        const result = await NetworkUtil.nodeIsUp('test_url');
+        const result = await NetworkUtil.nodeIsUp('test_url/');
 
         // THEN
         expect(result).to.not.be.undefined;
         expect(result).to.be.false;
-        sinon.assert.called(stubA);
+        sinon.assert.calledWith(stubA, 'test_url/node/health');
     });
 
     it('node is up expect error handling: return false', async () => {
@@ -100,7 +100,7 @@ describe('NetworkUtil', () => {
         // THEN
         expect(result).to.not.be.undefined;
         expect(result).to.be.false;
-        sinon.assert.called(stubA);
+        sinon.assert.calledWith(stubA, 'test_url/node/health');
     });
 
     it('get network type from address MAINNET', async () => {
