@@ -9,14 +9,16 @@ import {
     NetworkType,
     PlainMessage,
     RepositoryFactoryHttp,
+    Transaction,
     TransactionInfo,
     TransferTransaction,
     UInt64
 } from '@dhealth/sdk';
-import { AccountUtil, MosaicUtil, NetworkConfig, NetworkUtil, TransactionUtil, TransferTransactionStrategy} from '../src';
+import { AccountUtil, MosaicUtil, NetworkConfig, NetworkUtil, TransactionUtil } from '../src';
 import { TestConstants } from './TestConstant.spec';
 import { of, throwError } from 'rxjs';
 import { TransactionStrategies } from '../src';
+import { TransactionURI } from 'symbol-uri-scheme';
 
 describe('TransactionUtil', () => {
     before(() => {
@@ -68,6 +70,28 @@ describe('TransactionUtil', () => {
 
     afterEach(async () => {
         sinon.restore();
+    });
+
+    it('create transaction - TransferTransaction', async () => {
+        // GIVEN
+        const stubA = sinon.stub(TransactionStrategies, 'getStrategy').returns(TestConstants.mockTransferTransactionStrategy);
+        const stubB = sinon.stub(TestConstants.mockTransferTransactionStrategy, 'create').returns(TestConstants.mockTransferTx);
+        const transactionCreationParams = {
+            networkType: TestConstants.mockNetworkType,
+            maxFee: TestConstants.mockNumber,
+            recipientAddress: TestConstants.mockString,
+            mosaicDetails: TestConstants.mockMosaicDetails,
+            plainMessage: TestConstants.mockString
+        }
+        // WHEN
+        const result = TransactionUtil.createTransaction(
+            TransferTransaction,
+            transactionCreationParams
+        )
+        // THEN
+        expect(result).to.not.be.undefined;
+        expect(result).equals(TestConstants.mockTransferTx);
+        sinon.assert.callOrder(stubA, stubB);
     });
 
     it('create and announce transaction - TransferTransaction', async () => {
@@ -390,5 +414,18 @@ describe('TransactionUtil', () => {
         expectedJSONObj.transaction.deadline = deadline;
         expect(result).to.not.be.undefined;
         expect(result).equals(JSON.stringify(expectedJSONObj));
+    });
+
+    it('create transaction URI', async () => {
+        // GIVEN
+        const txURI = 'web+symbol://transaction?data=TEST';
+        const transaction: Transaction = TestConstants.mockTx;
+        const stubA = sinon.stub(TransactionURI.prototype, 'build').returns(txURI);
+        // WHEN
+        const result = TransactionUtil.createTransactionURI(transaction);
+        //THEN
+        expect(result).to.not.be.undefined;
+        expect(result).equals('web+dhealth://transaction?data=TEST');
+        sinon.assert.called(stubA);
     });
 });

@@ -567,6 +567,40 @@ const timestamp = await dhealth_utils.TransactionUtil.getTimestampFromTransactio
 ```
 </details>
 
+<details>
+<summary>Create a transfer transaction</summary>
+
+#### Typescript
+```ts
+const transactionCreationParams = {
+  networkType: NetworkType.TEST_NET,
+  maxFee: 100000, // 0.1 dhp - 1 million basic units equal 1 dhp
+  recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  mosaicDetails: [{mosaicId: '5A4935C1D66E6AC4', amount: 100000}],
+  plainMessage: `test create transfer tx - ${new Date().getTime()}`
+}
+
+const result = await TransactionUtil.createTransaction(
+  TransferTransaction,
+  transactionCreationParams
+);
+```
+
+#### Javascript
+```js
+const transactionCreationParams = {
+  networkType: NetworkType.TEST_NET,
+  maxFee: 100000, // 0.1 dhp - 1 million basic units equal 1 dhp
+  recipientAddress: 'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  mosaicDetails: [{mosaicId: '5A4935C1D66E6AC4', amount: 100000}],
+  plainMessage: `test create transfer tx - ${new Date().getTime()}`
+}
+
+const result = await dhealth_utils.TransactionUtil.createTransaction(
+  TransferTransaction,
+  transactionCreationParams
+);
+```
 </details>
 
 <details>
@@ -649,6 +683,40 @@ const result = await dhealth_utils.TransactionUtil.createAndAnnounceTransaction(
 ).catch(err => {
   console.log(err);
 });
+```
+</details>
+
+<details>
+<summary>Create a transfer URI (to be imported in wallet)</summary>
+
+#### Typescript
+```ts
+import { NetworkType, Mosaic, MosaicId, UInt64 } from '@dhealth/sdk';
+...
+const transaction = await TransactionUtil.createTransferTransaction(
+  NetworkType.TEST_NET,
+  'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  [new Mosaic(new MosaicId('5A4935C1D66E6AC4'), UInt64.fromUint(1000000))],
+  'test',
+  10000
+);
+const txURI = TransactionUtil.createTransactionURI(transaction);
+console.log('txURI: ', txURI);
+```
+
+#### Javascript
+```js
+const { NetworkType, Mosaic, MosaicId, UInt64 } = require('@dhealth/sdk');
+...
+const transaction = await dhealth_utils.TransactionUtil.createTransferTransaction(
+  NetworkType.TEST_NET,
+  'TBEFN3SSXFFEIUOJQLXSZBRJGN56G4XHW647OQQ',
+  [new Mosaic(new MosaicId('5A4935C1D66E6AC4'), UInt64.fromUint(1000000))],
+  'test',
+  10000
+);
+const txURI = dhealth_utils.TransactionUtil.createTransactionURI(transaction);
+console.log('txURI: ', txURI);
 ```
 </details>
 
