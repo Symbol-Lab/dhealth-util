@@ -66,12 +66,20 @@ yarn add dhealth-utils
 
 ### Typescript
 ```ts
+// Import util classes
 import {...} from 'dhealth-utils';
+
+// Import sdk classes
+import {...} from '@dhealth/sdk';
 ```
 
 ### Javascript
 ```js
+// Import util classes
 const dhealth_utils = require('dhealth-utils');
+
+// Import sdk classes
+const {...} = require('@dhealth/sdk');
 ```
 <!------------------------------------>
 <!-- COLLAPSIBLE SECTIONS FOR USAGE -->
@@ -141,12 +149,16 @@ const childAccount = wallet.getChildAccountPrivateKey('m/44\'/4343\'/0\'/0\'/0\'
 
 #### Typescript
 ```ts
+import {NetworkType, Password, SimpleWallet} from '@dhealth/sdk';
+
 const privateKey = 'your-private-key';
 const simpleWallet = SimpleWallet.createFromPrivateKey('name', new Password('37777777'), privateKey, NetworkType.TEST_NET);
 ```
 
 #### Javascript
 ```js
+const {NetworkType, Password, SimpleWallet} = require('@dhealth/sdk');
+
 const privateKey = 'your-private-key';
 const simpleWallet = dhealth_utils.SimpleWallet.createFromPrivateKey('name', new dhealth_utils.Password('37777777'), privateKey, dhealth_utils.NetworkType.TEST_NET);
 ```
