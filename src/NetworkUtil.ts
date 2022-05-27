@@ -6,7 +6,7 @@ export class NetworkUtil {
   public static async getNodeFromNetwork(networkType: NetworkType) {
     const available_nodes = NetworkConfig.networks[networkType].nodes;
     for (const node of available_nodes) {
-      const nodeIsUp = await this.nodeIsUp(`${node.url}/node/health`);
+      const nodeIsUp = await this.nodeIsUp(node.url);
       if (nodeIsUp) {
         return node;
       }
@@ -15,7 +15,8 @@ export class NetworkUtil {
   }
 
   public static async nodeIsUp(nodeUrl: string) {
-    const res = await axios.get(nodeUrl).catch(() => {
+    nodeUrl = nodeUrl.replace(/\/$/, '');
+    const res = await axios.get(`${nodeUrl}/node/health`).catch(() => {
       return false;
     });
     if (res.data && res.data.status.apiNode === 'up' && res.data.status.db === 'up') {
